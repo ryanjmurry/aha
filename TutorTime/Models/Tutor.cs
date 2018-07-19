@@ -51,5 +51,76 @@ namespace TutorTime.Models
                 return (idEquality && firstNameEquality && lastNameEquality && emailEquality && phoneNumberEquality && experienceEquality && credentialEquality && availabilityEquality && rateEquality);
             }
         }
+
+        public static List<Tutor> GetAll()
+        {
+            List<Tutor> allTutors = new List<Tutor> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM tutors;";
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int tutorId = rdr.GetInt32(0);
+                string tutorFirstName = rdr.GetString(1);
+                string tutorLastName = rdr.GetString(2);
+                string tutorEmail = rdr.GetString(3);
+                string tutorPhoneNumber = rdr.GetString(4);
+                int tutorExperience = rdr.GetInt32(5);
+                bool tutorCredential = rdr.GetBoolean(6);
+                string tutorAvailability = rdr.GetString(7);
+                double tutorRate = rdr.GetDouble(8);
+                Tutor newTutor = new Tutor (tutorFirstName, tutorLastName, tutorEmail, tutorPhoneNumber, tutorExperience, tutorCredential, tutorAvailability, tutorRate, tutorId);
+                allTutors.Add(newTutor);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allTutors;
+        }
+
+        public static void DeleteAll()
+        {
+            List<Tutor> allTutors = new List<Tutor> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM tutors;";
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public void Save()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO tutors (first_name, last_name, email, phone_number, experience, credential, availability, rate) VALUES (@tutorFirstName, @tutorLastName, @tutorEmail, @tutorPhoneNumber, @tutorExperience, @tutorCredential, @tutorAvailability, @tutorRate);";
+            cmd.Parameters.AddWithValue("@tutorFirstName", this.FirstName);
+            cmd.Parameters.AddWithValue("@tutorLastName", this.LastName);
+            cmd.Parameters.AddWithValue("@tutorEmail", this.Email);
+            cmd.Parameters.AddWithValue("@tutorPhoneNumber", this.PhoneNumber);
+            cmd.Parameters.AddWithValue("@tutorExperience", this.Experience);
+            cmd.Parameters.AddWithValue("@tutorCredential", this.Credential);
+            cmd.Parameters.AddWithValue("@tutorAvailability", this.Availability);
+            cmd.Parameters.AddWithValue("@tutorRate", this.Rate);
+            cmd.ExecuteNonQuery();
+
+            Id = (int) cmd.LastInsertedId;
+
+            conn.Close();
+            if(conn != null)
+            {
+                conn.Dispose();
+            }
+        }
     }
 }
