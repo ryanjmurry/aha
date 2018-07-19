@@ -214,6 +214,22 @@ namespace TutorTime.Models
             }
         }
 
+        public void AddClient(Client linkedClient)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO tutors_clients (tutor_id, client_id) VALUES (@tutorId, @clientId);";
+            cmd.Parameters.AddWithValue("@tutorId", this.Id);
+            cmd.Parameters.AddWithValue("@clientId", linkedClient.Id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
         public List<Client> GetClients()
         {
             List<Client> allTutorClients = new List<Client> { };
@@ -281,6 +297,21 @@ namespace TutorTime.Models
             return allTutorAppointments;
         }
 
+        public void AddSpecialty(Specialty linkedSpecialty)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO tutors_specialties (tutor_id, specialty_id) VALUES (@tutorId, @specialtyId);";
+            cmd.Parameters.AddWithValue("@tutorId", this.Id);
+            cmd.Parameters.AddWithValue("@clientId", linkedSpecialty.Id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
         public List<Specialty> GetSpecialties()
         {
             List<Specialty> allTutorSpecialties = new List<Specialty> { };
