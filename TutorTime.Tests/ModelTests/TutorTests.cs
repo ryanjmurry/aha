@@ -12,6 +12,9 @@ namespace TutorTime.Tests
         public void Dispose()
         {
             Tutor.DeleteAll();
+            Client.DeleteAll();
+            Appointment.DeleteAll();
+            Specialty.DeleteAll();
         }
 
         public TutorTest()
@@ -100,6 +103,47 @@ namespace TutorTime.Tests
             newTutor.Update("Bill", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00, newTutor.Id);
             string actualFirstName = Tutor.Find(newTutor.Id).FirstName;
             Assert.AreEqual("Bill", actualFirstName);
+        }
+
+        [TestMethod]
+        public void AddsGetsClients_AddsAndGetsClientsFromDb_ClientList()
+        {
+            Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
+            newTutor.Save();
+            DateTime birthday = new DateTime (1111, 11, 11);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            newClient.Save();
+            newTutor.AddClient(newClient);
+            List<Client> expectedList = new List<Client> { newClient };
+            List<Client> actualList = newTutor.GetClients();
+            CollectionAssert.AreEqual(expectedList, actualList);
+        }
+
+        [TestMethod]
+        public void GetsAppointments_GetsAppointmentsFromDb_AppointmentList()
+        {
+            Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
+            newTutor.Save();
+            DateTime time = new DateTime (1111, 11, 11);
+            Appointment newAppointment = new Appointment(newTutor.Id, 1, time, "123 ABC Street", "Xyz", "ZZ", "12345");
+            newAppointment.Save();
+            List<Appointment> expectedList = new List<Appointment> { newAppointment };
+            List<Appointment> actualList = newTutor.GetAppointments();
+            CollectionAssert.AreEqual(expectedList, actualList);
+
+        }
+
+        [TestMethod]
+        public void AddsGetsSpecialtiess_AddsAndGetsSpecialtiessFromDb_SpecialtyList()
+        {
+            Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
+            newTutor.Save();
+            Specialty newSpecialty = new Specialty("Chemistry", "Science");
+            newSpecialty.Save();
+            newTutor.AddSpecialty(newSpecialty);
+            List<Specialty> expectedList = new List<Specialty> { newSpecialty };
+            List<Specialty> actualList = newTutor.GetSpecialties();
+            CollectionAssert.AreEqual(expectedList, actualList);
         }
     }
 }

@@ -214,14 +214,14 @@ namespace TutorTime.Models
             }
         }
 
-        public void AddClient(Client linkedClient)
+        public void AddClient(Client newClient)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"INSERT INTO tutors_clients (tutor_id, client_id) VALUES (@tutorId, @clientId);";
             cmd.Parameters.AddWithValue("@tutorId", this.Id);
-            cmd.Parameters.AddWithValue("@clientId", linkedClient.Id);
+            cmd.Parameters.AddWithValue("@clientId", newClient.Id);
             cmd.ExecuteNonQuery();
             conn.Close();
             if (conn != null)
@@ -297,14 +297,14 @@ namespace TutorTime.Models
             return allTutorAppointments;
         }
 
-        public void AddSpecialty(Specialty linkedSpecialty)
+        public void AddSpecialty(Specialty newSpecialty)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"INSERT INTO tutors_specialties (tutor_id, specialty_id) VALUES (@tutorId, @specialtyId);";
             cmd.Parameters.AddWithValue("@tutorId", this.Id);
-            cmd.Parameters.AddWithValue("@clientId", linkedSpecialty.Id);
+            cmd.Parameters.AddWithValue("@specialtyId", newSpecialty.Id);
             cmd.ExecuteNonQuery();
             conn.Close();
             if (conn != null)
@@ -312,6 +312,7 @@ namespace TutorTime.Models
                 conn.Dispose();
             }
         }
+
         public List<Specialty> GetSpecialties()
         {
             List<Specialty> allTutorSpecialties = new List<Specialty> { };
@@ -322,6 +323,7 @@ namespace TutorTime.Models
                 JOIN tutors_specialties ON (tutors.id = tutors_specialties.tutor_id)
                 JOIN specialties ON (tutors_specialties.specialty_id = specialties.id)
                 WHERE tutors.id = @tutorId;";
+            cmd.Parameters.AddWithValue("@tutorId", this.Id);
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while (rdr.Read())
             {
