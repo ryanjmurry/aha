@@ -213,5 +213,100 @@ namespace TutorTime.Models
                 conn.Dispose();
             }
         }
+
+        public List<Client> GetClients()
+        {
+            List<Client> allTutorClients = new List<Client> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT clients.* FROM tutors
+                JOIN tutors_clients ON (tutors.id = tutors_clients.tutor_id)
+                JOIN clients ON (tutors_clients.client_id = clients.id)
+                WHERE tutors.id = @tutorId;";
+            cmd.Parameters.AddWithValue("@tutorId", this.Id);
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int clientId = rdr.GetInt32(0);
+                string clientFirstName = rdr.GetString(1);
+                string clientLastName = rdr.GetString(2);
+                string clientEmail = rdr.GetString(3);
+                string clientPhoneNumber = rdr.GetString(4);
+                string clientStreetAddress = rdr.GetString(5);
+                string clientCity = rdr.GetString(6);
+                string clientState = rdr.GetString(7);
+                string clientZip = rdr.GetString(8);
+                DateTime clientBirthday = rdr.GetDateTime(9);
+                Client newClient = new Client (clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientBirthday, clientId);
+                allTutorClients.Add(newClient);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allTutorClients;
+        }
+
+        public List<Appointment> GetAppointments()
+        {
+            List<Appointment> allTutorAppointments = new List<Appointment> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM appointments WHERE tutor_id = @tutorId;";
+            cmd.Parameters.AddWithValue("@tutorId", this.Id);
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int appointmentId = rdr.GetInt32(0);
+                int appointmentTutorId = rdr.GetInt32(1);
+                int appointmentClientId = rdr.GetInt32(2);
+                DateTime appointmentTime = rdr.GetDateTime(3);
+                string appointmentStreetAddress = rdr.GetString(4);
+                string appointmentCity = rdr.GetString(5);
+                string appointmentState = rdr.GetString(6);
+                string appointmentZip = rdr.GetString(7);
+                Appointment newAppointment = new Appointment (appointmentTutorId, appointmentClientId, appointmentTime, appointmentStreetAddress, appointmentCity, appointmentState, appointmentZip, appointmentId);
+                allTutorAppointments.Add(newAppointment);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allTutorAppointments;
+        }
+
+        public List<Specialty> GetSpecialties()
+        {
+            List<Specialty> allTutorSpecialties = new List<Specialty> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT specialties.* FROM tutors
+                JOIN tutors_specialties ON (tutors.id = tutors_specialties.tutor_id)
+                JOIN specialties ON (tutors_specialties.specialty_id = specialties.id)
+                WHERE tutors.id = @tutorId;";
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int specialtyId = rdr.GetInt32(0);
+                string specialtySubject = rdr.GetString(1);
+                string specialtyDiscipline = rdr.GetString(2);
+                Specialty newSpecialty = new Specialty (specialtySubject, specialtyDiscipline, specialtyId);
+                allTutorSpecialties.Add(newSpecialty);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allTutorSpecialties;
+        }
     }
 }
