@@ -180,5 +180,38 @@ namespace TutorTime.Models
                 conn.Dispose();
             }
         }
+
+        public void Update(string firstName, string lastName, string email, string phoneNumber, int experience, bool credential, string availability, double rate, int id)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE tutors SET first_name = @tutorFirstName, last_name = @tutorLastName, email = @tutorEmail, phone_number = @tutorPhoneNumber, experience = @tutorExperience, credential = @tutorCredential, availability = @tutorAvailability, rate = @tutorRate WHERE id = @tutorId;";
+            cmd.Parameters.AddWithValue("@tutorFirstName", firstName);
+            cmd.Parameters.AddWithValue("@tutorLastName", lastName);
+            cmd.Parameters.AddWithValue("@tutorEmail", email);
+            cmd.Parameters.AddWithValue("@tutorPhoneNumber", phoneNumber);
+            cmd.Parameters.AddWithValue("@tutorExperience", experience);
+            cmd.Parameters.AddWithValue("@tutorCredential", credential);
+            cmd.Parameters.AddWithValue("@tutorAvailability", availability);
+            cmd.Parameters.AddWithValue("@tutorRate", rate);
+            cmd.Parameters.AddWithValue("@tutorId", id);
+            cmd.ExecuteNonQuery();
+
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            Experience = experience;
+            Credential = credential;
+            Availability = availability;
+            Rate = rate;
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
     }
 }

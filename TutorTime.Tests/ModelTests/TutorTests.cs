@@ -91,5 +91,15 @@ namespace TutorTime.Tests
             List<Tutor> actualList = Tutor.GetAll();
             CollectionAssert.AreEqual(expectedList, actualList);
         }
+
+        [TestMethod]
+        public void Update_UpdateTutorFromDb_String()
+        {
+            Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
+            newTutor.Save();
+            newTutor.Update("Bill", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00, newTutor.Id);
+            string actualFirstName = Tutor.Find(newTutor.Id).FirstName;
+            Assert.AreEqual("Bill", actualFirstName);
+        }
     }
 }
