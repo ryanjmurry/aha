@@ -17,11 +17,11 @@ namespace TutorTime.Models
         public string Zip { get; set; }
         
 
-        public Appointment(int tutorId, int appointmentId, DateTime time, string streetAddress, string city, string state, string zip, int id = 0)
+        public Appointment(int tutorId, int clientId, DateTime time, string streetAddress, string city, string state, string zip, int id = 0)
         {
             Id = id;
             TutorId = tutorId;
-            ClientId = appointmentId;
+            ClientId = clientId;
             Time = time;
             StreetAddress = streetAddress;
             City = city;
@@ -175,25 +175,25 @@ namespace TutorTime.Models
             }
         }
 
-        public void Update(int tutorId, int appointmentId, DateTime time, string streetAddress, string city, string state, string zip, int id)
+        public void Update(int tutorId, int clientId, DateTime time, string streetAddress, string city, string state, string zip, int id)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"UPDATE appointments SET first_name = @appointmentFirstName, last_name = @appointmentLastName, email = @appointmentEmail, phone_number = @appointmentPhoneNumber, street_address = @appointmentStreetAddress, city = @appointmentCity, state = @appointmentState, zip = @appointmentZip, birthday = @appointmentBirthday WHERE id = @appointmentId;";
-            cmd.Parameters.AddWithValue("@appointmentTutorId", this.TutorId);
-            cmd.Parameters.AddWithValue("@appointmentClientId", this.ClientId);
-            cmd.Parameters.AddWithValue("@appointmentTime", this.Time);
-            cmd.Parameters.AddWithValue("@appointmentStreetAddress", this.StreetAddress);
-            cmd.Parameters.AddWithValue("@appointmentCity", this.City);
-            cmd.Parameters.AddWithValue("@appointmentState", this.State);
-            cmd.Parameters.AddWithValue("@appointmentZip", this.Zip);
+            cmd.CommandText = @"UPDATE appointments SET tutor_id = @appointmentTutorId, client_id = @appointmentClientId, time = @appointmentTime, street_address = @appointmentStreetAddress, city = @appointmentCity, state = @appointmentState, zip = @appointmentZip WHERE id = @appointmentId;";
+            cmd.Parameters.AddWithValue("@appointmentTutorId", tutorId);
+            cmd.Parameters.AddWithValue("@appointmentClientId", clientId);
+            cmd.Parameters.AddWithValue("@appointmentTime", time);
+            cmd.Parameters.AddWithValue("@appointmentStreetAddress", streetAddress);
+            cmd.Parameters.AddWithValue("@appointmentCity", city);
+            cmd.Parameters.AddWithValue("@appointmentState", state);
+            cmd.Parameters.AddWithValue("@appointmentZip", zip);
             cmd.Parameters.AddWithValue("@appointmentId", id);
             cmd.ExecuteNonQuery();
 
             Id = id;
             TutorId = tutorId;
-            ClientId = appointmentId;
+            ClientId = clientId;
             Time = time;
             StreetAddress = streetAddress;
             City = city;
