@@ -7,6 +7,6 @@ namespace TutorTime.Models
 {
     public class Appointment
     {
-    
+        
     }
 }
