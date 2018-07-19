@@ -164,5 +164,21 @@ namespace TutorTime.Models
 
             return foundTutor;
         }
+
+        public static void Delete(int id)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM tutors WHERE id = @tutorId;";
+            cmd.Parameters.AddWithValue("@tutorId", id);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
     }
 }

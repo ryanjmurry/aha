@@ -78,5 +78,18 @@ namespace TutorTime.Tests
             Tutor foundTutor = Tutor.Find(newTutor.Id);
             Assert.AreEqual(newTutor, foundTutor);
         }
+
+        [TestMethod]
+        public void Delete_DeletesTutorInDb_TutorList()
+        {
+            Tutor newTutor1 = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
+            newTutor1.Save();
+            Tutor newTutor2 = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
+            newTutor2.Save();
+            Tutor.Delete(newTutor1.Id);
+            List<Tutor> expectedList = new List<Tutor> { newTutor2 };
+            List<Tutor> actualList = Tutor.GetAll();
+            CollectionAssert.AreEqual(expectedList, actualList);
+        }
     }
 }
