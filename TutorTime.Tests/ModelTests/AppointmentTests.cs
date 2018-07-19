@@ -6,7 +6,7 @@ using TutorTime.Models;
 namespace TutorTime.Tests
 {
     [TestClass]
-    public class TutorTest
+    public class AppointmentTest
     {
        
     }

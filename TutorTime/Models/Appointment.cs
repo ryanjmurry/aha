@@ -5,7 +5,7 @@ using TutorTime;
 
 namespace TutorTime.Models
 {
-    public class Tutor
+    public class Appointment
     {
     
     }
