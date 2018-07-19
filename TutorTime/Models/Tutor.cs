@@ -122,5 +122,47 @@ namespace TutorTime.Models
                 conn.Dispose();
             }
         }
+
+        public static Tutor Find(int id)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM tutors WHERE id = @tutorId;";
+            cmd.Parameters.AddWithValue("@tutorId", id);
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        
+                int tutorId = 0;
+                string tutorFirstName = "";
+                string tutorLastName = "";
+                string tutorEmail = "";
+                string tutorPhoneNumber = "";
+                int tutorExperience = 0;
+                bool tutorCredential = true;
+                string tutorAvailability = "";
+                double tutorRate = 0.00;
+
+            while(rdr.Read())
+            {
+                tutorId = rdr.GetInt32(0);
+                tutorFirstName = rdr.GetString(1);
+                tutorLastName = rdr.GetString(2);
+                tutorEmail = rdr.GetString(3);
+                tutorPhoneNumber = rdr.GetString(4);
+                tutorExperience = rdr.GetInt32(5);
+                tutorCredential = rdr.GetBoolean(6);
+                tutorAvailability = rdr.GetString(7);
+                tutorRate = rdr.GetDouble(8);
+            }
+
+            Tutor foundTutor = new Tutor (tutorFirstName, tutorLastName, tutorEmail, tutorPhoneNumber, tutorExperience, tutorCredential, tutorAvailability, tutorRate, tutorId);
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Close();
+            }
+
+            return foundTutor;
+        }
     }
 }
