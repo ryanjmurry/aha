@@ -1,52 +1,71 @@
 @{
-  Layout = "_Layout";
-  ViewData["Title"] = "@Model.CurrentClient.Name";
-  
+  Layout = "_Layout"; 
 }
 <div class="container">
     <div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col">
-                <span class="card-title detail-header">@Model.CurrentClient.FirstName @Model.CurrentClient.LastName</span>
-            </div>
-            <div class="col">
-                <div class="float-right">
-                    <a href="/clients/@Model.CurrentClient.Id/specialties" class="btn btn-sm btn-outline-warning inline">Make Appointment</a>
-                    <a href="/clients/@Model.CurrentClient.Id/needs" class="btn btn-sm btn-outline-primary inline">Add Needs</a>
-                    <a href="/clients/@Model.CurrentClient.Id/update" class="btn btn-sm btn-outline-info">Update</a>
-                    <a href="/clients/@Model.CurrentClient.Id/specialties" class="btn btn-sm btn-outline-danger">Delete</a>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <span class="card-title detail-header">@Model.CurrentClient.FirstName @Model.CurrentClient.LastName</span>
+                </div>
+                <div class="col-3">
+                        <a href="/clients/@Model.CurrentClient.Id/update" class="btn btn-sm btn-outline-info">Update Info</a>
+                        <a href="/clients/@Model.CurrentClient.Id/delete" class="btn btn-sm btn-outline-danger">Delete Client</a>
                 </div>
             </div>
-        </div>
-        <br>
-        <br>
-        <div class="row">
-            <div class="col-5">
-                <h5 class="detail-subheader">Email</h5>
+            <br>
+            <div class="row">
+                <div class="col-4">
+                    <h5 class="detail-subheader">Email</h5>
                     <a href="mailto:@Model.CurrentClient.Email" class="detail-info">@Model.CurrentClient.Email</a>
-                    <br>
-                    <br>
+                </div>
+                <div class="col-3">
                     <h5 class="detail-subheader">Phone</h5>
                     <a href="tel:@Model.CurrentClient.PhoneNumber" class="detail-info">@Model.CurrentClient.PhoneNumber</a>
-            </div>
-            <div class="col">
-                <h5 class="detail-subheader inline">Needs</h5><br>
-                @if (Model.CurrentClient.GetNeeds().Count == 1)
-                {
-                    @foreach (var need in Model.CurrentClient.GetNeeds())
+                </div>
+                <div class="col">
+                    <h5 class="detail-subheader">Address</h5>
+                    <a href="http://maps.google.com/?q=@Model.CurrentClient.StreetAddress, @Model.CurrentClient.City, @Model.CurrentClient.State @Model.CurrentClient.Zip" class="detail-info">@Model.CurrentClient.StreetAddress, @Model.CurrentClient.City, @Model.CurrentClient.State @Model.CurrentClient.Zip</a></span>
+                </div>
+            </div> 
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-4">
+                    <h5 class="detail-subheader inline">Needs</h5><a href="/clients/@Model.CurrentClient.Id/needs" class="btn btn-sm btn-outline-primary float-right inline">Manage Needs</a>
+                    <ul class="list-group list-group-flush">
+                    @if (Model.CurrentClient.GetNeeds().Count == 0)
                     {
-                        <span class="detail-info"> @need.Subject </span>
+                        <li class="list-group-item"></li>
                     }
-                }
-                else
-                {
-                    @foreach (var need in Model.CurrentClient.GetNeeds())
+                    else
                     {
-                        <span class="detail-info"> @need.Subject | </span>
+                        @foreach (var specialty in Model.CurrentClient.GetNeeds())
+                        {
+                        <li class="list-group-item">@specialty.Subject</li>
+                          
+                        }  
+                    }    
+                    </ul>
+                </div>
+                <div class="col-4">
+                    <h5 class="detail-subheader inline">Tutors</h5><a href="/clients/@Model.CurrentClient.Id/tutors" class="btn btn-sm btn-outline-warning float-right inline">Manage Tutors</a>
+                    <ul class="list-group list-group-flush">
+                    @if (Model.CurrentClient.GetTutors().Count == 0)
+                    {
+                        <li class="list-group-item"></li>
                     }
-                }
+                    else
+                    {
+                        @foreach (var tutor in Model.CurrentClient.GetTutors())
+                        {
+                            <li class="list-group-item"><a href="/tutors/@tutor.Id">@tutor.LastName, @tutor.FirstName</a><a href="tel:@tutor.PhoneNumber" class="btn btn-sm btn-outline-success float-right">Call</a><a href="sms:@tutor.PhoneNumber" class="btn btn-sm btn-outline-info float-right">text</a><a href="mailto:@tutor.Email" class="btn btn-sm btn-outline-secondary float-right">Email</a></li>
+                        }
+                    }
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
+

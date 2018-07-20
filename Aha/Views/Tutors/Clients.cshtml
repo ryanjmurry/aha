@@ -21,7 +21,7 @@
                 </ul>
             </div>
             <div class="col-5">
-                <form method="post" action="/tutors/@Model.CurrentTutor.Id/clients"></form>
+                <form method="post" action="/tutors/@Model.CurrentTutor.Id/clients">
                     <label for="tutorClient">Clients</label>
                     <select name="tutorClient" class="form-control">
                     @foreach (var client in Model.AllClients)
@@ -33,7 +33,7 @@
                     }
                     </select>
                     <br>
-                    <button type="submit" class="btn btn-outline-secondary">Add client</button>
+                    <button type="submit" class="btn btn-outline-primary">Add client</button>
                     <br>
                     <br>
                     <a href="/tutors/@Model.CurrentTutor.Id" class="btn btn-outline-success">Finish</a>

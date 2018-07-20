@@ -1,7 +1,5 @@
 @{
-  Layout = "_Layout";
-  ViewData["Title"] = "@Model.CurrentTutor.Name";
-  
+  Layout = "_Layout"; 
 }
 <div class="container">
     <div class="card">
@@ -69,8 +67,9 @@
                     else
                     {
                         @foreach (var client in Model.CurrentTutor.GetClients())
-                        {
-                            <li class="list-group-item"><a href="/clients/@client.Id">@client.LastName, @client.FirstName</a></li>
+                        {   
+                                <li class="list-group-item"><a href="/clients/@client.Id">@client.LastName, @client.FirstName</a><a href="tel:@client.PhoneNumber" class="btn btn-sm btn-outline-success float-right">Call</a><a href="sms:@client.PhoneNumber" class="btn btn-sm btn-outline-info float-right">text</a><a href="mailto:@client.Email" class="btn btn-sm btn-outline-secondary float-right">Email</a></li>
+
                         }
                     }
                     </ul>
