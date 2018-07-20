@@ -106,7 +106,7 @@ namespace TutorTime.Tests
         }
 
         [TestMethod]
-        public void AddsGetsClients_AddsAndGetsClientsFromDb_ClientList()
+        public void AddsGetsClients_AddsAndGetsAssociatedClientsFromDb_ClientList()
         {
             Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
             newTutor.Save();
@@ -120,7 +120,7 @@ namespace TutorTime.Tests
         }
 
         [TestMethod]
-        public void GetsAppointments_GetsAppointmentsFromDb_AppointmentList()
+        public void GetsAppointments_GetsAssociatedAppointmentsFromDb_AppointmentList()
         {
             Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
             newTutor.Save();
@@ -134,7 +134,7 @@ namespace TutorTime.Tests
         }
 
         [TestMethod]
-        public void AddsGetsSpecialtiess_AddsAndGetsSpecialtiessFromDb_SpecialtyList()
+        public void AddsGetsSpecialtiess_AddsAndGetsAssociatedSpecialtiessFromDb_SpecialtyList()
         {
             Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
             newTutor.Save();

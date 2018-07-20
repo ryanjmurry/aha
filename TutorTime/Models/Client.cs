@@ -223,5 +223,132 @@ namespace TutorTime.Models
                 conn.Dispose();
             }
         }
+
+        public void AddTutor(Tutor newTutor)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO tutors_clients (tutor_id, client_id) VALUES (@tutorId, @clientId);";
+            cmd.Parameters.AddWithValue("@tutorId", newTutor.Id);
+            cmd.Parameters.AddWithValue("@clientId", this.Id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public List<Tutor> GetTutors()
+        {
+            List<Tutor> allClientTutors = new List<Tutor> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT tutors.* FROM clients
+                JOIN tutors_clients ON (clients.id = tutors_clients.client_id)
+                JOIN tutors ON (tutors_clients.tutor_id = tutors.id)
+                WHERE clients.id = @clientId;";
+            cmd.Parameters.AddWithValue("clientId", this.Id);
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int tutorId = rdr.GetInt32(0);
+                string tutorFirstName = rdr.GetString(1);
+                string tutorLastName = rdr.GetString(2);
+                string tutorEmail = rdr.GetString(3);
+                string tutorPhoneNumber = rdr.GetString(4);
+                int tutorExperience = rdr.GetInt32(5);
+                bool tutorCredential = rdr.GetBoolean(6);
+                string tutorAvailability = rdr.GetString(7);
+                double tutorRate = rdr.GetDouble(8);
+                Tutor newTutor = new Tutor (tutorFirstName, tutorLastName, tutorEmail, tutorPhoneNumber, tutorExperience, tutorCredential, tutorAvailability, tutorRate, tutorId);
+                allClientTutors.Add(newTutor);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allClientTutors;
+        }
+
+        public List<Appointment> GetAppointments()
+        {
+            List<Appointment> allClientAppointments = new List<Appointment> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM appointments WHERE client_id = @clientId;";
+            cmd.Parameters.AddWithValue("@clientId", this.Id);
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int appointmentId = rdr.GetInt32(0);
+                int appointmentTutorId = rdr.GetInt32(1);
+                int appointmentClientId = rdr.GetInt32(2);
+                DateTime appointmentTime = rdr.GetDateTime(3);
+                string appointmentStreetAddress = rdr.GetString(4);
+                string appointmentCity = rdr.GetString(5);
+                string appointmentState = rdr.GetString(6);
+                string appointmentZip = rdr.GetString(7);
+                Appointment newAppointment = new Appointment (appointmentTutorId, appointmentClientId, appointmentTime, appointmentStreetAddress, appointmentCity, appointmentState, appointmentZip, appointmentId);
+                allClientAppointments.Add(newAppointment);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allClientAppointments;
+        }
+
+        public void AddNeed(Specialty newNeed)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO clients_needs (client_id, specialty_id) VALUES (@clientId, @specialtyId);";
+            cmd.Parameters.AddWithValue("@clientId", this.Id);
+            cmd.Parameters.AddWithValue("@specialtyId", newNeed.Id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public List<Specialty> GetNeeds()
+        {
+            List<Specialty> allClientSpecialties = new List<Specialty> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT specialties.* FROM clients
+                JOIN clients_needs ON (clients.id = clients_needs.client_id)
+                JOIN specialties ON (clients_needs.specialty_id = specialties.id)
+                WHERE clients.id = @clientId;";
+            cmd.Parameters.AddWithValue("@clientId", this.Id);
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int specialtyId = rdr.GetInt32(0);
+                string specialtySubject = rdr.GetString(1);
+                string specialtyDiscipline = rdr.GetString(2);
+                Specialty newSpecialty = new Specialty (specialtySubject, specialtyDiscipline, specialtyId);
+                allClientSpecialties.Add(newSpecialty);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allClientSpecialties;
+        }
     }
 }

@@ -109,5 +109,48 @@ namespace TutorTime.Tests
             string actualFirstName = Client.Find(newClient.Id).FirstName;
             Assert.AreEqual("Bill", actualFirstName);
         }
+
+        [TestMethod]
+        public void AddsGetsTutors_AddsAndGetsAssociatedTutorsFromDb_TutorList()
+        {
+            DateTime birthday = new DateTime (1111, 11, 11);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            newClient.Save();
+            Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
+            newTutor.Save();
+            newClient.AddTutor(newTutor);
+            List<Tutor> expectedList = new List<Tutor> { newTutor };
+            List<Tutor> actualList = newClient.GetTutors();
+            CollectionAssert.AreEqual(expectedList, actualList);
+        }
+
+        [TestMethod]
+        public void GetsAppointments_GetsAssociatedAppointmentsFromDb_AppointmentList()
+        {
+            DateTime birthday = new DateTime (1111, 11, 11);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            newClient.Save();
+            DateTime time = new DateTime (1111, 11, 11);
+            Appointment newAppointment = new Appointment(1, newClient.Id, time, "123 ABC Street", "Xyz", "ZZ", "12345");
+            newAppointment.Save();
+            List<Appointment> expectedList = new List<Appointment> { newAppointment };
+            List<Appointment> actualList = newClient.GetAppointments();
+            CollectionAssert.AreEqual(expectedList, actualList);
+
+        }
+
+        [TestMethod]
+        public void AddsGetsSpecialtiess_AddsAndGetsAssociatedSpecialtiessFromDb_SpecialtyList()
+        {
+            DateTime birthday = new DateTime (1111, 11, 11);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            newClient.Save();
+            Specialty newNeed = new Specialty("Chemistry", "Science");
+            newNeed.Save();
+            newClient.AddNeed(newNeed);
+            List<Specialty> expectedList = new List<Specialty> { newNeed };
+            List<Specialty> actualList = newClient.GetNeeds();
+            CollectionAssert.AreEqual(expectedList, actualList);
+        }
     }
 }

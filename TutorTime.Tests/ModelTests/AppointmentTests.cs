@@ -107,5 +107,18 @@ namespace TutorTime.Tests
             int actualTutorId = Appointment.Find(newAppointment.Id).TutorId;
             Assert.AreEqual(2, actualTutorId);
         }
+
+        [TestMethod]
+        public void GetClient_GetsAssociatedClientFromDb_Client()
+        {
+            DateTime birthday = new DateTime (1111, 11, 11);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            newClient.Save();
+            DateTime time = new DateTime (1111, 11, 11);
+            Appointment newAppointment = new Appointment(1, 1, time, "123 ABC Street", "Xyz", "ZZ", "12345");
+            newAppointment.Save();
+            Client actualClient = newAppointment.GetClient();
+            Assert.AreEqual(newClient, actualClient);
+        }
     }
 }
