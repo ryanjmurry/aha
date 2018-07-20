@@ -1,0 +1,97 @@
+@{
+  Layout = "_Layout";
+  ViewData["Title"] = "New Client";
+}
+
+<div class="container">
+    <h2 class="header-text centered">New Client</h2>
+    <br>
+    <form method="post" action="/clients/@Model.Id/update">
+        <div class="form-row">
+            <div class="col-1">
+
+            </div>
+            <div class="col-5">
+                <label for="clientFirstName">First Name </label>
+                <input name="clientFirstName" type="text" class="form-control" value="@Model.FirstName" required>             
+            </div>
+            <div class="col-5">
+                <label for="clientLastName">Last Name </label>
+                <input name="clientLastName" type="text" class="form-control" value="@Model.LastName" required>
+            </div>
+            <div class="col-1">
+
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col-1">
+                
+            </div>
+            <div class="col-7">
+                <label for="clientEmail">Email </label>
+                <input name="clientEmail" type="email" class="form-control" value="@Model.Email" required>
+            </div>
+            <div class="col-3">
+                <label for="clientPhoneNumber">Phone Number </label>
+                <input name="clientPhoneNumber" type="tel" class="form-control" value="@Model.PhoneNumber" required>
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col-1">
+                
+            </div>  
+            <div class="col">
+                <label for="clientStreetAddress">Street Address </label>
+                <input name="clientStreetAddress" type="text" class="form-control" value="@Model.StreetAddress" required>
+            </div>          
+            <div class="col-1">
+                
+            </div>            
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col-1">
+                
+            </div>
+            <div class="col-4">
+                <label for="clientCity">City </label>
+                <input name="clientCity" type="text" class="form-control" value="@Model.City" required>
+            </div>
+            <div class="form-group col-1">
+                <label for="clientState">State </label>
+                <input name="clientState" type="text" class="form-control" value="@Model.State" required>
+
+            </div>
+            <div class="form-group col-2">
+                <label for="clientZip">Zip </label>
+                <input name="clientZip" type="text" class="form-control" value="@Model.Zip" required>
+            </div>  
+            <div class="col-3">
+                <label for="clientBirthday">Birthday </label>
+                <input name="clientBirthday" type="date" class="form-control" required>
+            </div>
+            <div class="col-1">
+                
+            </div>      
+        </div>
+        <div class="form-row">
+            <div class="col-1">
+
+            </div>
+            <div class="col">
+                <a href="/clients" class="btn btn-outline-warning">Cancel</a>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-outline-primary float-right ">Update Client</button>
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+    </form>
+</div>

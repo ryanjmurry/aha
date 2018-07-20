@@ -6,7 +6,6 @@
 <div class="container">
     <h2 class="header-text centered">@Model.CurrentTutor.FirstName @Model.CurrentTutor.LastName 's Clients</h2>
     <br>
-    <form method="post" action="/tutors/@Model.CurrentTutor.Id/clients">
         <div class="row">
             <div class="col-1">
                 
@@ -15,30 +14,34 @@
                 <ul class="list-group list-group-flush">
                     @foreach (var client in Model.CurrentTutor.GetClients())
                     {
-                        <li class="list-group-item">@client.LastName, @client.FirstName</li>
+                        <li class="list-group-item"><form method="post" action="/tutors/@Model.CurrentTutor.Id/client/@client.Id/delete"><a href="/clients/@client.Id">
+                            @client.LastName, @client.FirstName</a><button type="submit" class="btn btn-sm btn-outline-danger float-right">Delete</button>
+                        </form></li>
                     }        
                 </ul>
             </div>
             <div class="col-5">
-                <label for="tutorClient">Clients</label>
-                <select name="tutorClient" class="form-control">
-                @foreach (var client in Model.AllClients)
-                {
-                        if (!@Model.CurrentTutor.GetClients().Contains(@client))
-                        {
-                            <option value="@client.Id">@client.LastName, @client.FirstName</option>
-                        }
-                }
-                </select>
-                <br>
-                <button type="submit" class="btn btn-outline-secondary">Add client</button>
-                <br>
-                <br>
-                <a href="/tutors/@Model.CurrentTutor.Id" class="btn btn-outline-success">Finish</a>             
+                <form method="post" action="/tutors/@Model.CurrentTutor.Id/clients"></form>
+                    <label for="tutorClient">Clients</label>
+                    <select name="tutorClient" class="form-control">
+                    @foreach (var client in Model.AllClients)
+                    {
+                            if (!@Model.CurrentTutor.GetClients().Contains(@client))
+                            {
+                                <option value="@client.Id">@client.LastName, @client.FirstName</option>
+                            }
+                    }
+                    </select>
+                    <br>
+                    <button type="submit" class="btn btn-outline-secondary">Add client</button>
+                    <br>
+                    <br>
+                    <a href="/tutors/@Model.CurrentTutor.Id" class="btn btn-outline-success">Finish</a>
+                </form>           
             </div>
             <div class="col-1">
                 
             </div>
         </div>
-    </form>
+
 </div>
