@@ -109,15 +109,19 @@ namespace TutorTime.Tests
         }
 
         [TestMethod]
-        public void GetClient_GetsAssociatedClientFromDb_Client()
+        public void GetTutorAndClient_GetsAssociatedTutorAndClientFromDb_TutorAndClient()
         {
+            Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
+            newTutor.Save();
             DateTime birthday = new DateTime (1111, 11, 11);
             Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
             newClient.Save();
             DateTime time = new DateTime (1111, 11, 11);
-            Appointment newAppointment = new Appointment(1, 1, time, "123 ABC Street", "Xyz", "ZZ", "12345");
+            Appointment newAppointment = new Appointment(newTutor.Id, newClient.Id, time, "123 ABC Street", "Xyz", "ZZ", "12345");
             newAppointment.Save();
-            Client actualClient = newAppointment.GetClient();
+            Tutor actualTutor = Tutor.Find(newAppointment.TutorId);
+            Client actualClient = Client.Find(newAppointment.ClientId);
+            Assert.AreEqual(newTutor, actualTutor);
             Assert.AreEqual(newClient, actualClient);
         }
     }

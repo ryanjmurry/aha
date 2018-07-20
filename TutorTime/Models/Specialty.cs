@@ -160,6 +160,109 @@ namespace TutorTime.Models
                 conn.Dispose();
             }
         }
+
+        public void AddClient(Client newClient)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO clients_needs (client_id, specialty_id) VALUES (@clientId, @specialtyId);";
+            cmd.Parameters.AddWithValue("@specialtyID", this.Id);
+            cmd.Parameters.AddWithValue("@clientId", newClient.Id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public List<Client> GetClients()
+        {
+            List<Client> allSpecialtyClients = new List<Client> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT clients.* FROM specialties
+                JOIN clients_needs ON (specialties.id = clients_needs.specialty_id)
+                JOIN clients ON (clients_needs.client_id = clients.id)
+                WHERE specialties.id = @specialtyId;";
+            cmd.Parameters.AddWithValue("@specialtyId", this.Id);
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int clientId = rdr.GetInt32(0);
+                string clientFirstName = rdr.GetString(1);
+                string clientLastName = rdr.GetString(2);
+                string clientEmail = rdr.GetString(3);
+                string clientPhoneNumber = rdr.GetString(4);
+                string clientStreetAddress = rdr.GetString(5);
+                string clientCity = rdr.GetString(6);
+                string clientState = rdr.GetString(7);
+                string clientZip = rdr.GetString(8);
+                DateTime clientBirthday = rdr.GetDateTime(9);
+                Client newClient = new Client (clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientBirthday, clientId);
+                allSpecialtyClients.Add(newClient);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allSpecialtyClients;
+        }
+
+        public void AddTutor(Tutor newTutor)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO tutors_specialties (tutor_id, specialty_id) VALUES (@tutorId, @specialtyId);";
+            cmd.Parameters.AddWithValue("@tutorId", newTutor.Id);
+            cmd.Parameters.AddWithValue("@specialtyId", this.Id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public List<Tutor> GetTutors()
+        {
+            List<Tutor> allSpecialtyTutors = new List<Tutor> { };
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT tutors.* FROM specialties
+                JOIN tutors_specialties ON (specialties.id = tutors_specialties.specialty_id)
+                JOIN tutors ON (tutors_specialties.tutor_id = tutors.id)
+                WHERE specialties.id = @specialtyId;";
+            cmd.Parameters.AddWithValue("specialtyId", this.Id);
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int tutorId = rdr.GetInt32(0);
+                string tutorFirstName = rdr.GetString(1);
+                string tutorLastName = rdr.GetString(2);
+                string tutorEmail = rdr.GetString(3);
+                string tutorPhoneNumber = rdr.GetString(4);
+                int tutorExperience = rdr.GetInt32(5);
+                bool tutorCredential = rdr.GetBoolean(6);
+                string tutorAvailability = rdr.GetString(7);
+                double tutorRate = rdr.GetDouble(8);
+                Tutor newTutor = new Tutor (tutorFirstName, tutorLastName, tutorEmail, tutorPhoneNumber, tutorExperience, tutorCredential, tutorAvailability, tutorRate, tutorId);
+                allSpecialtyTutors.Add(newTutor);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return allSpecialtyTutors;
+        }
     }
 }
 
