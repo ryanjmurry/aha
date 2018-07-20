@@ -1,0 +1,44 @@
+@{
+  Layout = "_Layout";
+  ViewData["Title"] = "New Client";
+}
+
+<div class="container">
+    <h2 class="header-text centered">@Model.CurrentClient.FirstName @Model.CurrentClient.LastName 's Needs</h2>
+    <br>
+    <form method="post" action="/clients/@Model.CurrentClient.Id/needs">
+        <div class="row">
+            <div class="col-1">
+                
+            </div>
+            <div class="col-5">
+                <ul class="list-group list-group-flush">
+                    @foreach (var need in Model.CurrentClient.GetNeeds())
+                    {
+                        <li class="list-group-item">@need.Subject</li>
+                    }        
+                </ul>
+            </div>
+            <div class="col-5">
+                <label for="clientNeed">Needs</label>
+                <select name="clientNeed" class="form-control">
+                @foreach (var need in Model.AllSpecialties)
+                {
+                        if (!@Model.CurrentClient.GetNeeds().Contains(@need))
+                        {
+                            <option value="@need.Id">@need.Subject</option>
+                        }
+                }
+                </select>
+                <br>
+                <button type="submit" class="btn btn-outline-primary">Add need</button>
+                <br>
+                <br>
+                <a href="/clients/@Model.CurrentClient.Id" class="btn btn-outline-success">Finish</a>             
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+    </form>
+</div>
