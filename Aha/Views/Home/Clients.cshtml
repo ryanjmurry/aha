@@ -1,7 +1,13 @@
 @{
   Layout = "_Layout";
+  ViewData["Title"] = "Clients";
 }
-
 <div class="container">
-    <h1 class="centered">Clients</h1> 
+    <h1 class="centered">Clients</h1>
+    @foreach (var client in Model)
+    {
+      <h2><a href="/clients/@client.Id">@client.LastName, @client.FirstName</a></h2>
+    } 
+    <a href="/clients/new" class="btn btn-outline-primary">Add New Client</a>
+    <a href="/clients/delete-all" class="btn btn-outline-danger">Delete All Clients</a>
 </div>

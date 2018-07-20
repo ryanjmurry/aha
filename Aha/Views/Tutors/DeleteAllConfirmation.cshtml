@@ -3,12 +3,15 @@
 }
 
 <div class='container'>
-    <div class="alert alert-danger">
-      <strong>Warning:</strong> Deleting all tutors cannot be undone!
-    </div>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Wait!</strong> Deleting all tutors cannot be undone!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
     <p>Are you sure you want to delete all tutors?</p>
         <form action="/tutors/delete-all" method="post">
-          <button class="btn btn-success">Yes, Do It!</button>
+          <button class="btn btn-outline-success">Yes, Do It!</button>
+          <a href="/tutors" class="btn btn-outline-danger">No, Stop!</a>
         </form>
-        <a href="/tutors" class="btn btn-danger">No, Stop!</a>
 </div>

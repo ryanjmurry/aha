@@ -6,7 +6,7 @@
 <div class="container">
     <h2 class="header-text centered">@Model.CurrentClient.FirstName @Model.CurrentClient.LastName 's Needs</h2>
     <br>
-    <form method="post" action="/clients/@Model.CurrentClient.Id/needs">
+    
         <div class="row">
             <div class="col-1">
                 
@@ -15,23 +15,27 @@
                 <ul class="list-group list-group-flush">
                     @foreach (var need in Model.CurrentClient.GetNeeds())
                     {
-                        <li class="list-group-item">@need.Subject</li>
+                        <li class="list-group-item"><form method="post" action="/clients/@Model.CurrentClient.Id/needs/@need.Id/delete">
+                            @need.Subject <button type="submit" class="btn btn-sm btn-outline-danger float-right">Delete</button>
+                        </form></li>
                     }        
                 </ul>
             </div>
             <div class="col-5">
-                <label for="clientNeed">Needs</label>
-                <select name="clientNeed" class="form-control">
-                @foreach (var need in Model.AllSpecialties)
-                {
-                        if (!@Model.CurrentClient.GetNeeds().Contains(@need))
-                        {
-                            <option value="@need.Id">@need.Subject</option>
-                        }
-                }
-                </select>
-                <br>
-                <button type="submit" class="btn btn-outline-primary">Add need</button>
+                <form method="post" action="/clients/@Model.CurrentClient.Id/needs"></form>
+                    <label for="clientNeed">Needs</label>
+                    <select name="clientNeed" class="form-control">
+                    @foreach (var need in Model.AllSpecialties)
+                    {
+                            if (!@Model.CurrentClient.GetNeeds().Contains(@need))
+                            {
+                                <option value="@need.Id">@need.Subject</option>
+                            }
+                    }
+                    </select>
+                    <br>
+                    <button type="submit" class="btn btn-outline-primary">Add need</button>
+                </form>
                 <br>
                 <br>
                 <a href="/clients/@Model.CurrentClient.Id" class="btn btn-outline-success">Finish</a>             
@@ -40,5 +44,5 @@
                 
             </div>
         </div>
-    </form>
+
 </div>

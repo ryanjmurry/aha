@@ -322,6 +322,22 @@ namespace Aha.Models
             }
         }
 
+        public void DeleteNeed(Specialty deleteNeed)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM clients_needs WHERE client_id = @clientId AND specialty_id = @needId;";
+            cmd.Parameters.AddWithValue("@clientId", this.Id);
+            cmd.Parameters.AddWithValue("@needId", deleteNeed.Id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
         public List<Specialty> GetNeeds()
         {
             List<Specialty> allClientSpecialties = new List<Specialty> { };

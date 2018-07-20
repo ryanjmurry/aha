@@ -62,5 +62,41 @@ namespace Aha.Controllers
             currentClient.Update(clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientBirthday, id);
             return RedirectToAction("Details", new { id = currentClient.Id});
         }
+
+        [HttpGet("/clients/{id}/delete")]
+        public ActionResult DeleteClientConfirmation(int id)
+        {
+            Client currentClient = Client.Find(id);
+            return View(currentClient);
+        }
+
+        [HttpPost("/clients/{id}/delete")]
+        public ActionResult DeleteClient(int id)
+        {
+            Client.Delete(id);
+            return RedirectToAction("Clients", "Home");
+        }
+
+        [HttpGet("/clients/delete-all")]
+        public ActionResult DeleteAllConfirmation(int id)
+        {
+            return View();
+        }
+
+        [HttpPost("/clients/delete-all")]
+        public ActionResult DeleteAllClients()
+        {
+            Client.DeleteAll();
+            return RedirectToAction("Clients", "Home");
+        }
+
+        [HttpPost("/clients/{clientId}/needs/{needId}/delete")]
+        public ActionResult DeleteNeed(int clientId, int needId)
+        {
+            Client currentClient = Client.Find(clientId);
+            Specialty currentNeed = Specialty.Find(needId);
+            currentClient.DeleteNeed(currentNeed);
+            return RedirectToAction("Needs", new { id = currentClient.Id});
+        }
     }
 }

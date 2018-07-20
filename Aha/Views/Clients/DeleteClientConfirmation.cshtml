@@ -4,15 +4,15 @@
 
 <div class='container'>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>Wait!</strong> Deleting a tutor cannot be undone!
+    <strong>Wait!</strong> Deleting a client cannot be undone!
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
     <p>Are you sure you want to delete @Model.FirstName @Model.LastName?</p>
-        <form action="/tutors/@Model.Id/delete" method="post">
+        <form action="/clients/@Model.Id/delete" method="post">
           <button class="btn btn-outline-success inline">Yes, Do It!</button>
-          <a href="/tutors" class="btn btn-outline-danger">No, Stop!</a>
+          <a href="/clients" class="btn btn-outline-danger inline">No, Stop!</a>
         </form>
-        
+
 </div>
