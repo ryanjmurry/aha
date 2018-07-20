@@ -6,20 +6,24 @@
 <div class="container">
     <h2 class="header-text centered">@Model.CurrentTutor.FirstName @Model.CurrentTutor.LastName 's Specialties</h2>
     <br>
-    <form method="post" action="/tutors/@Model.CurrentTutor.Id/specialties">
         <div class="row">
             <div class="col-1">
                 
             </div>
-            <div class="col-5">
+            <div class="col">
                 <ul class="list-group list-group-flush">
                     @foreach (var specialty in Model.CurrentTutor.GetSpecialties())
                     {
-                        <li class="list-group-item">@specialty.Subject</li>
-                    }        
+                        <li class="list-group-item"><form method="post" action="/tutors/@Model.CurrentTutor.Id/specialties/@specialty.Id/delete">
+                            @specialty.Subject <button type="submit" class="btn btn-sm btn-outline-danger float-right">Delete</button>
+                        </form></li>
+                          
+                    }      
                 </ul>
             </div>
-            <div class="col-5">
+            
+            <div class="col">
+            <form method="post" action="/tutors/@Model.CurrentTutor.Id/specialties">
                 <label for="tutorSpecialty">Specialties</label>
                 <select name="tutorSpecialty" class="form-control">
                 @foreach (var specialty in Model.AllSpecialties)
@@ -32,6 +36,7 @@
                 </select>
                 <br>
                 <button type="submit" class="btn btn-outline-primary">Add specialty</button>
+            </form>
                 <br>
                 <br>
                 <a href="/tutors/@Model.CurrentTutor.Id" class="btn btn-outline-success">Finish</a>             
@@ -40,5 +45,4 @@
                 
             </div>
         </div>
-    </form>
 </div>

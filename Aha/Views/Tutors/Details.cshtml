@@ -37,9 +37,19 @@
             </div>
             <div class="col">
                 <h5 class="detail-subheader inline">Specialties</h5><br>
-                @foreach (var specialty in Model.CurrentTutor.GetSpecialties())
+                @if (Model.CurrentTutor.GetSpecialties().Count == 1)
                 {
-                    <span class="detail-info"> @specialty.Subject | </span>
+                    @foreach (var specialty in Model.CurrentTutor.GetSpecialties())
+                    {
+                        <span class="detail-info"> @specialty.Subject </span>
+                    }
+                }
+                else
+                {
+                    @foreach (var specialty in Model.CurrentTutor.GetSpecialties())
+                    {
+                        <span class="detail-info"> @specialty.Subject | </span>
+                    }
                 }
                 <br>
                 <br>

@@ -313,6 +313,22 @@ namespace Aha.Models
             }
         }
 
+        public void DeleteSpecialty(Specialty deleteSpecialty)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM tutors_specialties WHERE tutor_id = @tutorId AND specialty_id = @specialtyId;";
+            cmd.Parameters.AddWithValue("@tutorId", this.Id);
+            cmd.Parameters.AddWithValue("@specialtyId", deleteSpecialty.Id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
         public List<Specialty> GetSpecialties()
         {
             List<Specialty> allTutorSpecialties = new List<Specialty> { };

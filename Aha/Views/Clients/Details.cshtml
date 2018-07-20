@@ -1,0 +1,52 @@
+@{
+  Layout = "_Layout";
+  ViewData["Title"] = "@Model.CurrentClient.Name";
+  
+}
+<div class="container">
+    <div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <span class="card-title detail-header">@Model.CurrentClient.FirstName @Model.CurrentClient.LastName</span>
+            </div>
+            <div class="col">
+                <div class="float-right">
+                    <a href="/clients/@Model.CurrentClient.Id/specialties" class="btn btn-sm btn-outline-warning inline">Make Appointment</a>
+                    <a href="/clients/@Model.CurrentClient.Id/needs" class="btn btn-sm btn-outline-primary inline">Add Needs</a>
+                    <a href="/clients/@Model.CurrentClient.Id/update" class="btn btn-sm btn-outline-info">Update</a>
+                    <a href="/clients/@Model.CurrentClient.Id/specialties" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-5">
+                <h5 class="detail-subheader">Email</h5>
+                    <a href="mailto:@Model.CurrentClient.Email" class="detail-info">@Model.CurrentClient.Email</a>
+                    <br>
+                    <br>
+                    <h5 class="detail-subheader">Phone</h5>
+                    <a href="tel:@Model.CurrentClient.PhoneNumber" class="detail-info">@Model.CurrentClient.PhoneNumber</a>
+            </div>
+            <div class="col">
+                <h5 class="detail-subheader inline">Needs</h5><br>
+                @if (Model.CurrentClient.GetNeeds().Count == 1)
+                {
+                    @foreach (var need in Model.CurrentClient.GetNeeds())
+                    {
+                        <span class="detail-info"> @need.Subject </span>
+                    }
+                }
+                else
+                {
+                    @foreach (var need in Model.CurrentClient.GetNeeds())
+                    {
+                        <span class="detail-info"> @need.Subject | </span>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

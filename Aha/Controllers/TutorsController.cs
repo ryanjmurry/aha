@@ -48,7 +48,7 @@ namespace Aha.Controllers
             return View(newViewModel);
         }
 
-        [HttpPost("/tutors/{id}/specialties")]
+        [HttpPost("/tutors/{id}/clients")]
         public ActionResult AddClient(int id, int tutorClient)
         {
             Tutor currentTutor = Tutor.Find(id);
@@ -80,32 +80,13 @@ namespace Aha.Controllers
             return RedirectToAction("Details", new { id = currentTutor.Id});
         }
 
-[       HttpGet("/tutors/delete-all")]
-        public ActionResult DeleteAllConfirmation()
+        [HttpPost("/tutors/{tutorId}/specialties/{specialtyId}/delete")]
+        public ActionResult DeleteSpecialty(int tutorId, int specialtyId)
         {
-            return View();
-        }
-
-        [HttpPost("/tutors/delete-all")]
-        public ActionResult DeleteAll()
-        {
-            Tutor.DeleteAll();
-            return RedirectToAction("Tutors", "Home");
-
-        }
-
-        [HttpGet("/tutors/{id}/delete")]
-        public ActionResult DeleteTutorConfirmation(int id)
-        {
-            Tutor currentTutor = Tutor.Find(id);
-            return View(currentTutor);
-        }
-
-        [HttpPost("/stylists/{id}/delete")]
-        public ActionResult DeleteTutor(int id)
-        {
-            Tutor.Delete(id);
-            return RedirectToAction("Tutors", "Home");
+            Tutor currentTutor = Tutor.Find(tutorId);
+            Specialty currentSpecialty = Specialty.Find(specialtyId);
+            currentTutor.DeleteSpecialty(currentSpecialty);
+            return RedirectToAction("Specialties", new { id = currentTutor.Id});
         }
     }
 }
