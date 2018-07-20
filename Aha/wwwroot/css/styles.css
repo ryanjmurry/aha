@@ -21,6 +21,23 @@ body {
     text-align: center;
 }
 
-/* .form-group {
-    font-size: 1.4em;
-} */
+.detail-header {
+    font-size: 3em;
+}
+
+.detail-icon {
+    font-size: 2em;
+}
+
+.detail-subheader {
+    font-size: 1.5em;
+    text-decoration: underline;
+}
+
+.detail-info {
+    font-size: 1.25em;
+}
+
+.inline {
+    display: inline-block;
+}

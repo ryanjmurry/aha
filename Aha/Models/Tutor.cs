@@ -58,7 +58,7 @@ namespace Aha.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM tutors;";
+            cmd.CommandText = @"SELECT * FROM tutors ORDER BY last_name;";
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while (rdr.Read())
             {
@@ -322,7 +322,7 @@ namespace Aha.Models
             cmd.CommandText = @"SELECT specialties.* FROM tutors
                 JOIN tutors_specialties ON (tutors.id = tutors_specialties.tutor_id)
                 JOIN specialties ON (tutors_specialties.specialty_id = specialties.id)
-                WHERE tutors.id = @tutorId;";
+                WHERE tutors.id = @tutorId ORDER BY subject;";
             cmd.Parameters.AddWithValue("@tutorId", this.Id);
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while (rdr.Read())

@@ -40,7 +40,7 @@ namespace Aha.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM specialties;";
+            cmd.CommandText = @"SELECT * FROM specialties ORDER BY subject;";
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while (rdr.Read())
             {
