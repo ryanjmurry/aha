@@ -12,7 +12,7 @@
     <p>Are you sure you want to delete @Model.FirstName @Model.LastName?</p>
         <form action="/clients/@Model.Id/delete" method="post">
           <button class="btn btn-outline-success inline">Yes, Do It!</button>
-          <a href="/clients" class="btn btn-outline-danger inline">No, Stop!</a>
+          <a href="/clients/@Model.Id" class="btn btn-outline-danger inline">No, Stop!</a>
         </form>
 
 </div>

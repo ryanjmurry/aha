@@ -22,7 +22,7 @@
                 </ul>
             </div>
             <div class="col-5">
-                <form method="post" action="/clients/@Model.CurrentClient.Id/needs"></form>
+                <form method="post" action="/clients/@Model.CurrentClient.Id/needs">
                     <label for="clientNeed">Needs</label>
                     <select name="clientNeed" class="form-control">
                     @foreach (var need in Model.AllSpecialties)
