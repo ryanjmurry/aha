@@ -1,0 +1,39 @@
+@{
+  Layout = "_Layout";
+  ViewData["Title"] = "New Tutor";
+}
+
+<div class="container">
+    <h2 class="header-text centered">@Model.CurrentTutor.FirstName @Model.CurrentTutor.LastName 's Specialties</h2>
+    <br>
+    <form method="post" action="/tutors/@Model.CurrentTutor.Id/specialties">
+        <div class="row">
+            <div class="col-1">
+                
+            </div>
+            <div class="col-5">
+                <ul class="list-group list-group-flush">
+                    @foreach (var specialty in Model.CurrentTutor.GetSpecialties())
+                    {
+                        <li class="list-group-item">@specialty</li>
+                    }        
+                </ul>
+            </div>
+            <div class="col-5">
+                <label for="tutorSpecialty">Specialties</label>
+                <select name="tutorSpecialty" class="form-control">
+                @foreach (var specialty in Model.AllSpecialties)
+                {
+                        if (!@Model.CurrentTutor.GetSpecialties().Contains(@specialty))
+                        {
+                            <option value="@specialty.Id">@specialty.Subject</option>
+                        }
+                }
+                </select>             
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+    </form>
+</div>
