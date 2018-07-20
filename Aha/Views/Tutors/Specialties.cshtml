@@ -15,7 +15,7 @@
                 <ul class="list-group list-group-flush">
                     @foreach (var specialty in Model.CurrentTutor.GetSpecialties())
                     {
-                        <li class="list-group-item">@specialty</li>
+                        <li class="list-group-item">@specialty.Subject</li>
                     }        
                 </ul>
             </div>
@@ -29,7 +29,12 @@
                             <option value="@specialty.Id">@specialty.Subject</option>
                         }
                 }
-                </select>             
+                </select>
+                <br>
+                <button type="submit" class="btn btn-outline-primary">Add specialty</button>
+                <br>
+                <br>
+                <a href="/tutors/@Model.CurrentTutor.Id" class="btn btn-outline-success">Finish</a>             
             </div>
             <div class="col-1">
                 

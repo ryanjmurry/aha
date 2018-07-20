@@ -30,5 +30,14 @@ namespace Aha.Controllers
             newViewModel.FindTutor(id);
             return View(newViewModel);
         }
+
+        [HttpPost("/tutors/{id}/specialties")]
+        public ActionResult AddSpecialty(int id, int tutorSpecialty)
+        {
+            Tutor currentTutor = Tutor.Find(id);
+            Specialty newSpecialty = Specialty.Find(tutorSpecialty);
+            currentTutor.AddSpecialty(newSpecialty);
+            return RedirectToAction("Specialties");
+        }
     }
 }
