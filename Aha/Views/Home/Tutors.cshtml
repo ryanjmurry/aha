@@ -3,5 +3,11 @@
   ViewData["Title"] = "Tutors";
 }
 <div class="container">
-    <h1 class="centered">Tutors</h1> 
+    <h1 class="centered">Tutors</h1>
+    @foreach (var tutor in Model)
+    {
+      <h2><a href="/tutors/@tutor.Id">@tutor.LastName, @tutor.FirstName</a></h2>
+    } 
+    <a href="/tutors/new" class="btn btn-outline-primary">Add New Tutor</a>
+    <a href="/tutors/delete-all" class="btn btn-outline-danger">Delete All Tutors</a>
 </div>

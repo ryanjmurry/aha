@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class='container'>
+    <div class="alert alert-danger">
+      <strong>Warning:</strong> Deleting all tutors cannot be undone!
+    </div>
+    <p>Are you sure you want to delete all tutors?</p>
+        <form action="/tutors/delete-all" method="post">
+          <button class="btn btn-success">Yes, Do It!</button>
+        </form>
+        <a href="/tutors" class="btn btn-danger">No, Stop!</a>
+</div>
