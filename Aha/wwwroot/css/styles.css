@@ -1,0 +1,20 @@
+.splash-body {
+    background-image: url("../img/splash-bg-25-min.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.page-centered {
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.splash-logo {
+    position: fixed;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
