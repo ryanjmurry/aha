@@ -1,3 +1,95 @@
 @{
-    ViewData["Title"] = "New Restaurant";
+  Layout = "_Layout";
+  ViewData["Title"] = "New Tutor";
 }
+
+<div class="container">
+    <h2 class="header-text centered">New Tutor</h2>
+    <br>
+    <form method="post" action="/tutors/new">
+        <div class="form-row">
+            <div class="col-1">
+
+            </div>
+            <div class="col-5">
+                <label for="tutorFirstName">First Name </label>
+                <input name="tutorFirstName" type="text" class="form-control" placeholder="First Name">
+            </div>
+            <div class="col-5">
+                <label for="tutorLastName">Last Name </label>
+                <input name="tutorLastName" type="text" class="form-control" placeholder="Last Name">
+            </div>
+            <div class="col-1">
+
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col-1">
+                
+            </div>
+            <div class="col-7">
+                <label for="tutorPhoneNumber">Email </label>
+                <input name="tutorPhoneNumber" type="email" class="form-control" placeholder="name@example.com">
+            </div>
+            <div class="col-3">
+                <label for="tutorEmail">Phone Number </label>
+                <input name="tutorEmail" type="tel" class="form-control" placeholder="555-555-5555">
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col-1">
+                
+            </div>
+            <div class="col-2">
+                <label for="tutorExperience">Years Tutored </label>
+                <input name="tutorExperience" type="number" class="form-control" placeholder="0">
+            </div>
+            <div class="form-group col-2">
+                <label for="tutorCredential">Credentialed</label>
+                <select name ="tutorCredential" id="tutorCredential" class="form-control">
+                    <option selected>Choose...</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+            </div>
+            <div class="form-group col-3">
+                <label for="tutorAvailability">Availability</label>
+                <select name="tutorAvailability" id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option value="Weekday Mornings">Weekday Morning</option>
+                    <option value="Weekday Afternoons">Weekday Afternoons</option>
+                    <option value="Weekday Evenings">Weekday Mornings</option>
+                    <option value="Weekend Mornings">Weekend Mornings</option>
+                    <option value="Weekend Afternoons">Weekend Afternoons</option>
+                    <option value="Weekend Evenings">Weekend Evenings</option>
+                </select>
+            </div>  
+            <div class="col-3">
+                <label for="tutorRate">Rate Per Hour </label>
+                <input name="tutorRate" type="number" class="form-control" placeholder="$20.00">
+            </div>
+            <div class="col-1">
+                
+            </div>      
+        </div>
+        <div class="form-row">
+            <div class="col-1">
+
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-info">Add Specialties</button>
+            </div>
+            <div class="col">
+                <a href="/tutors" class="float-right btn btn-warning">Cancel</a>
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+    </form>
+</div>

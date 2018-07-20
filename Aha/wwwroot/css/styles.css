@@ -1,7 +1,5 @@
-.splash-body {
-    background-image: url("../img/splash-bg-25-min.jpg");
-    background-repeat: no-repeat;
-    background-size: 100%;
+body {
+    background-color: white;
 }
 
 .page-centered {
@@ -22,3 +20,7 @@
 .centered {
     text-align: center;
 }
+
+/* .form-group {
+    font-size: 1.4em;
+} */
