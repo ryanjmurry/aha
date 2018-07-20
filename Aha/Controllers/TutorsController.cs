@@ -40,6 +40,23 @@ namespace Aha.Controllers
             return RedirectToAction("Specialties");
         }
 
+        [HttpGet("/tutors/{id}/clients")]
+        public ActionResult Clients(int id)
+        {
+            ViewModel newViewModel = new ViewModel();
+            newViewModel.FindTutor(id);
+            return View(newViewModel);
+        }
+
+        [HttpPost("/tutors/{id}/specialties")]
+        public ActionResult AddClient(int id, int tutorClient)
+        {
+            Tutor currentTutor = Tutor.Find(id);
+            Client newClient = Client.Find(tutorClient);
+            currentTutor.AddClient(newClient);
+            return RedirectToAction("Clients");
+        }
+
         [HttpGet("/tutors/{id}")]
         public ActionResult Details(int id)
         {
@@ -51,9 +68,8 @@ namespace Aha.Controllers
         [HttpGet("/tutors/{id}/update")]
         public ActionResult UpdateForm(int id)
         {
-            ViewModel newViewModel = new ViewModel();
-            newViewModel.FindTutor(id);
-            return View(newViewModel);
+            Tutor currentTutor = Tutor.Find(id);
+            return View(currentTutor);
         }
 
         [HttpPost("/tutors/{id}/update")]

@@ -239,7 +239,7 @@ namespace Aha.Models
             cmd.CommandText = @"SELECT clients.* FROM tutors
                 JOIN tutors_clients ON (tutors.id = tutors_clients.tutor_id)
                 JOIN clients ON (tutors_clients.client_id = clients.id)
-                WHERE tutors.id = @tutorId;";
+                WHERE tutors.id = @tutorId ORDER BY last_name;";
             cmd.Parameters.AddWithValue("@tutorId", this.Id);
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while (rdr.Read())

@@ -1,0 +1,167 @@
+@{
+  Layout = "_Layout";
+  ViewData["Title"] = "New Tutor";
+}
+
+<div class="container">
+    <h2 class="header-text centered">Update @Model.FirstName @Model.LastName</h2>
+    <br>
+    <form method="post" action="/tutors/@Model.Id/update">
+        <div class="form-row">
+            <div class="col-1">
+
+            </div>
+            <div class="col-5">
+                <label for="tutorFirstName">First Name </label>
+                <input name="tutorFirstName" type="text" class="form-control" value="@Model.FirstName" required>             
+            </div>
+            <div class="col-5">
+                <label for="tutorLastName">Last Name </label>
+                <input name="tutorLastName" type="text" class="form-control" value="@Model.LastName" required>
+            </div>
+            <div class="col-1">
+
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col-1">
+                
+            </div>
+            <div class="col-7">
+                <label for="tutorEmail">Email </label>
+                <input name="tutorEmail" type="email" class="form-control" value="@Model.Email" required>
+            </div>
+            <div class="col-3">
+                <label for="tutorPhoneNumber">Phone Number </label>
+                <input name="tutorPhoneNumber" type="tel" class="form-control" value="@Model.PhoneNumber" required>
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col-1">
+                
+            </div>
+            <div class="col-2">
+                <label for="tutorExperience">Years Tutored </label>
+                <input name="tutorExperience" type="number" class="form-control" value="@Model.Experience" required >
+            </div>
+            <div class="form-group col-2">
+                @if (Model.Credential == true)
+                {
+                    <label for="tutorCredential">Credentialed</label>
+                    <select name ="tutorCredential" id="tutorCredential" class="form-control" required >
+                        <option value="true" selected>Yes</option>
+                        <option value="false">No</option>
+                    </select>                    
+                }
+                else
+                {
+                    <label for="tutorCredential">Credentialed</label>
+                    <select name ="tutorCredential" id="tutorCredential" class="form-control" required >
+                        <option value="true">Yes</option>
+                        <option value="false" selected>No</option>
+                    </select>
+                }
+            </div>
+            <div class="form-group col-3">
+                @if (Model.Availability == "Weekday Mornings")
+                {
+                    <label for="tutorAvailability">Availability</label>
+                    <select name="tutorAvailability" id="inputState" class="form-control" required >
+                        <option value="Weekday Mornings" selected>Weekday Mornings</option>
+                        <option value="Weekday Afternoons">Weekday Afternoons</option>
+                        <option value="Weekday Evenings">Weekday Evenings</option>
+                        <option value="Weekend Mornings">Weekend Mornings</option>
+                        <option value="Weekend Afternoons">Weekend Afternoons</option>
+                        <option value="Weekend Evenings">Weekend Evenings</option>
+                    </select>
+                }
+                else if (Model.Availability == "Weekday Afternoons")
+                {
+                    <label for="tutorAvailability">Availability</label>
+                    <select name="tutorAvailability" id="inputState" class="form-control" required >
+                        <option value="Weekday Mornings">Weekday Mornings</option>
+                        <option value="Weekday Afternoons" selected>Weekday Afternoons</option>
+                        <option value="Weekday Evenings">Weekday Evenings</option>
+                        <option value="Weekend Mornings">Weekend Mornings</option>
+                        <option value="Weekend Afternoons">Weekend Afternoons</option>
+                        <option value="Weekend Evenings">Weekend Evenings</option>
+                    </select>
+                }
+                else if (Model.Availability == "Weekday Evenings")
+                {
+                    <label for="tutorAvailability">Availability</label>
+                    <select name="tutorAvailability" id="inputState" class="form-control" required >
+                        <option value="Weekday Mornings">Weekday Mornings</option>
+                        <option value="Weekday Afternoons">Weekday Afternoons</option>
+                        <option value="Weekday Evenings" selected>Weekday Evenings</option>
+                        <option value="Weekend Mornings">Weekend Mornings</option>
+                        <option value="Weekend Afternoons">Weekend Afternoons</option>
+                        <option value="Weekend Evenings">Weekend Evenings</option>
+                    </select>
+                }
+                else if (Model.Availability == "Weekend Mornings")
+                {
+                    <label for="tutorAvailability">Availability</label>
+                    <select name="tutorAvailability" id="inputState" class="form-control" required >
+                        <option value="Weekday Mornings">Weekday Mornings</option>
+                        <option value="Weekday Afternoons">Weekday Afternoons</option>
+                        <option value="Weekday Evenings">Weekday Evenings</option>
+                        <option value="Weekend Mornings" selected>Weekend Mornings</option>
+                        <option value="Weekend Afternoons">Weekend Afternoons</option>
+                        <option value="Weekend Evenings">Weekend Evenings</option>
+                    </select>
+                }
+                else if (Model.Availability == "Weekend Afternoons")
+                {
+                    <label for="tutorAvailability">Availability</label>
+                    <select name="tutorAvailability" id="inputState" class="form-control" required >
+                        <option value="Weekday Mornings">Weekday Mornings</option>
+                        <option value="Weekday Afternoons">Weekday Afternoons</option>
+                        <option value="Weekday Evenings">Weekday Evenings</option>
+                        <option value="Weekend Mornings">Weekend Mornings</option>
+                        <option value="Weekend Afternoons" selected>Weekend Afternoons</option>
+                        <option value="Weekend Evenings">Weekend Evenings</option>
+                    </select>
+                }
+                else if(Model.Availability == "Weekend Evenings")
+                {
+                    <label for="tutorAvailability">Availability</label>
+                    <select name="tutorAvailability" id="inputState" class="form-control" required >
+                        <option value="Weekday Mornings">Weekday Mornings</option>
+                        <option value="Weekday Afternoons">Weekday Afternoons</option>
+                        <option value="Weekday Evenings">Weekday Evenings</option>
+                        <option value="Weekend Mornings">Weekend Mornings</option>
+                        <option value="Weekend Afternoons">Weekend Afternoons</option>
+                        <option value="Weekend Evenings" selected>Weekend Evenings</option>
+                    </select>
+                }                
+            </div>  
+            <div class="col-3">
+                <label for="tutorRate">Rate Per Hour </label>
+                <input name="tutorRate" type="number" class="form-control" value="@Model.Rate.ToString("0.00")" required>
+            </div>
+            <div class="col-1">
+                
+            </div>      
+        </div>
+        <div class="form-row">
+            <div class="col-1">
+
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-info">Update Tutor</button>
+            </div>
+            <div class="col">
+                <a href="/tutors" class="float-right btn btn-warning">Cancel</a>
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+    </form>
+</div>

@@ -8,6 +8,10 @@ namespace Aha.Controllers
 {
     public class ClientsController : Controller
     {
-
+        [HttpGet("/clients/new")]
+        public ActionResult Form()
+        {
+            return View();
+        }
     }
 }
