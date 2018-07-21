@@ -112,12 +112,6 @@ namespace Aha.Controllers
             return RedirectToAction("Tutors", "Home");
         }
 
-        [HttpGet("/tutors/delete-all")]
-        public ActionResult DeleteAllConfirmation(int id)
-        {
-            return View();
-        }
-
         [HttpPost("/tutors/delete-all")]
         public ActionResult DeleteAllTutors()
         {
