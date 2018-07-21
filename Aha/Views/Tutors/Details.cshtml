@@ -58,7 +58,7 @@
                     </ul>
                 </div>
                 <div class="col-4">
-                    <h5 class="detail-subheader inline">Clients</h5><a href="/tutors/@Model.CurrentTutor.Id/clients" class="btn btn-sm btn-outline-warning float-right inline">Manage Clients</a>
+                    <h5 class="detail-subheader inline">Clients</h5><a href="/tutors/@Model.CurrentTutor.Id/clients" class="btn btn-sm btn-outline-primary float-right inline">Manage Clients</a>
                     <ul class="list-group list-group-flush">
                     @if (Model.CurrentTutor.GetClients().Count == 0)
                     {
@@ -68,8 +68,13 @@
                     {
                         @foreach (var client in Model.CurrentTutor.GetClients())
                         {   
-                                <li class="list-group-item"><a href="/clients/@client.Id">@client.LastName, @client.FirstName</a><a href="tel:@client.PhoneNumber" class="btn btn-sm btn-outline-success float-right">Call</a><a href="sms:@client.PhoneNumber" class="btn btn-sm btn-outline-info float-right">text</a><a href="mailto:@client.Email" class="btn btn-sm btn-outline-secondary float-right">Email</a></li>
-
+                            <li class="list-group-item"><a href="/clients/@client.Id" class="inline">@client.LastName, @client.FirstName</a>
+                                <div class="float-right">
+                                    <a href="mailto:@client.Email" class="btn btn-sm btn-outline-warning inline">Email</a>
+                                    <a href="sms:@client.PhoneNumber" class="btn btn-sm btn-outline-info inline">Text</a>
+                                    <a href="tel:@client.PhoneNumber" class="btn btn-sm btn-outline-success inline">Call</a>
+                                </div>
+                            </li>
                         }
                     }
                     </ul>

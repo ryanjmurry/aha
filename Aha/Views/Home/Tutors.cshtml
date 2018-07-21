@@ -4,10 +4,27 @@
 }
 <div class="container">
     <h1 class="centered">Tutors</h1>
+    <div class="row">
     @foreach (var tutor in Model)
     {
-      <h2><a href="/tutors/@tutor.Id">@tutor.LastName, @tutor.FirstName</a></h2>
-    } 
-    <a href="/tutors/new" class="btn btn-outline-primary">Add New Tutor</a>
-    <a href="/tutors/delete-all" class="btn btn-outline-danger">Delete All Tutors</a>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title centered">@tutor.LastName, @tutor.FirstName</h5>
+            <div class="centered">
+              <a href="tel:@tutor.PhoneNumber" class="btn btn-sm btn-outline-success">Call</a>
+              <a href="sms:@tutor.PhoneNumber" class="btn btn-sm btn-outline-info">text</a>
+              <a href="mailto:@tutor.Email" class="btn btn-sm btn-outline-warning">Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    </div>
+    <br>
+    <br>
+    <div class="centered">
+      <a href="/tutors/new" class="btn btn-outline-primary">Add New Tutor</a>
+      <a href="/tutors/delete-all" class="btn btn-outline-danger">Delete All Tutors</a>
+    </div>
 </div>

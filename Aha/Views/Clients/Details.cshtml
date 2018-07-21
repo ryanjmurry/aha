@@ -2,6 +2,7 @@
   Layout = "_Layout"; 
 }
 <div class="container">
+    <h1 class="centered">Client Details</h1>
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -49,7 +50,7 @@
                     </ul>
                 </div>
                 <div class="col-4">
-                    <h5 class="detail-subheader inline">Tutors</h5><a href="/clients/@Model.CurrentClient.Id/tutors" class="btn btn-sm btn-outline-warning float-right inline">Manage Tutors</a>
+                    <h5 class="detail-subheader inline">Tutors</h5><a href="/clients/@Model.CurrentClient.Id/tutors" class="btn btn-sm btn-outline-primary float-right inline">Manage Tutors</a>
                     <ul class="list-group list-group-flush">
                     @if (Model.CurrentClient.GetTutors().Count == 0)
                     {
@@ -59,9 +60,15 @@
                     {
                         @foreach (var tutor in Model.CurrentClient.GetTutors())
                         {
-                            <li class="list-group-item"><a href="/tutors/@tutor.Id">@tutor.LastName, @tutor.FirstName</a><a href="tel:@tutor.PhoneNumber" class="btn btn-sm btn-outline-success float-right">Call</a><a href="sms:@tutor.PhoneNumber" class="btn btn-sm btn-outline-info float-right">text</a><a href="mailto:@tutor.Email" class="btn btn-sm btn-outline-secondary float-right">Email</a></li>
-                        }
-                    }
+                            <li class="list-group-item"><a href="/tutors/@tutor.Id" class="inline">@tutor.LastName, @tutor.FirstName</a>
+                                <div class="float-right">
+                                    <a href="mailto:@tutor.Email" class="btn btn-sm btn-outline-warning inline">Email</a>
+                                    <a href="sms:@tutor.PhoneNumber" class="btn btn-sm btn-outline-info inline">Text</a>
+                                    <a href="tel:@tutor.PhoneNumber" class="btn btn-sm btn-outline-success inline">Call</a>
+                                </div>
+                            </li>
+                        } 
+                    }  
                     </ul>
                 </div>
             </div>
