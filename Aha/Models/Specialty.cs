@@ -200,8 +200,8 @@ namespace Aha.Models
                 string clientCity = rdr.GetString(6);
                 string clientState = rdr.GetString(7);
                 string clientZip = rdr.GetString(8);
-                DateTime clientBirthday = rdr.GetDateTime(9);
-                Client newClient = new Client (clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientBirthday, clientId);
+                int clientAge = rdr.GetInt32(9);
+                Client newClient = new Client (clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientAge, clientId);
                 allSpecialtyClients.Add(newClient);
             }
 

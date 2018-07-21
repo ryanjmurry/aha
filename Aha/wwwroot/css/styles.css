@@ -31,7 +31,6 @@ body {
 
 .detail-subheader {
     font-size: 1.5em;
-    text-decoration: underline;
 }
 
 .detail-info {
@@ -40,4 +39,8 @@ body {
 
 .inline {
     display: inline-block;
+}
+
+.underline {
+    border: 1px solid rgba(134, 142, 150, 0.25);
 }

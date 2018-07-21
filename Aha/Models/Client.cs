@@ -16,9 +16,9 @@ namespace Aha.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
-        public DateTime Birthday { get; set; }
+        public int Age { get; set; }
 
-        public Client(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string city, string state, string zip, DateTime birthday, int id = 0)
+        public Client(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string city, string state, string zip, int age, int id = 0)
         {
             Id = id;
             FirstName = firstName;
@@ -29,7 +29,7 @@ namespace Aha.Models
             City = city;
             State = state;
             Zip = zip;
-            Birthday = birthday;
+            Age = age;
         }
 
         public override bool Equals(System.Object otherClient)
@@ -50,8 +50,8 @@ namespace Aha.Models
                 bool cityEquality = (this.City == newClient.City);
                 bool stateEquality = (this.State == newClient.State);
                 bool zipEquality = (this.Zip == newClient.Zip);
-                bool birthdayEquality = (this.Birthday == newClient.Birthday);
-                return (idEquality && firstNameEquality && lastNameEquality && emailEquality && phoneNumberEquality && streetAddressEquality && cityEquality && stateEquality && zipEquality && birthdayEquality);
+                bool ageEquality = (this.Age == newClient.Age);
+                return (idEquality && firstNameEquality && lastNameEquality && emailEquality && phoneNumberEquality && streetAddressEquality && cityEquality && stateEquality && zipEquality && ageEquality);
             }
         }
 
@@ -74,8 +74,8 @@ namespace Aha.Models
                 string clientCity = rdr.GetString(6);
                 string clientState = rdr.GetString(7);
                 string clientZip = rdr.GetString(8);
-                DateTime clientBirthday = rdr.GetDateTime(9);
-                Client newClient = new Client (clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientBirthday, clientId);
+                int clientAge = rdr.GetInt32(9);
+                Client newClient = new Client (clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientAge, clientId);
                 allClients.Add(newClient);
             }
 
@@ -107,7 +107,7 @@ namespace Aha.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO clients (first_name, last_name, email, phone_number, street_address, city, state, zip, birthday) VALUES (@clientFirstName, @clientLastName, @clientEmail, @clientPhoneNumber, @clientStreetAddress, @clientCity, @clientState, @clientZip, @clientBirthday);";
+            cmd.CommandText = @"INSERT INTO clients (first_name, last_name, email, phone_number, street_address, city, state, zip, age) VALUES (@clientFirstName, @clientLastName, @clientEmail, @clientPhoneNumber, @clientStreetAddress, @clientCity, @clientState, @clientZip, @clientAge);";
             cmd.Parameters.AddWithValue("@clientFirstName", this.FirstName);
             cmd.Parameters.AddWithValue("@clientLastName", this.LastName);
             cmd.Parameters.AddWithValue("@clientEmail", this.Email);
@@ -116,7 +116,7 @@ namespace Aha.Models
             cmd.Parameters.AddWithValue("@clientCity", this.City);
             cmd.Parameters.AddWithValue("@clientState", this.State);
             cmd.Parameters.AddWithValue("@clientZip", this.Zip);
-            cmd.Parameters.AddWithValue("@clientBirthday", this.Birthday);
+            cmd.Parameters.AddWithValue("@clientAge", this.Age);
             cmd.ExecuteNonQuery();
 
             Id = (int) cmd.LastInsertedId;
@@ -146,7 +146,7 @@ namespace Aha.Models
                 string clientCity = "";
                 string clientState = "";
                 string clientZip = "";
-                DateTime clientBirthday = new DateTime();
+                int clientAge = 0;
 
             while(rdr.Read())
             {
@@ -159,10 +159,10 @@ namespace Aha.Models
                 clientCity = rdr.GetString(6);
                 clientState = rdr.GetString(7);
                 clientZip = rdr.GetString(8);
-                clientBirthday = rdr.GetDateTime(9);
+                clientAge = rdr.GetInt32(9);
             }
 
-            Client foundClient = new Client (clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientBirthday, clientId);
+            Client foundClient = new Client (clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientAge, clientId);
             conn.Close();
             if (conn != null)
             {
@@ -188,12 +188,12 @@ namespace Aha.Models
             }
         }
 
-        public void Update(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string city, string state, string zip, DateTime birthday, int id)
+        public void Update(string firstName, string lastName, string email, string phoneNumber, string streetAddress, string city, string state, string zip, int age, int id)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"UPDATE clients SET first_name = @clientFirstName, last_name = @clientLastName, email = @clientEmail, phone_number = @clientPhoneNumber, street_address = @clientStreetAddress, city = @clientCity, state = @clientState, zip = @clientZip, birthday = @clientBirthday WHERE id = @clientId;";
+            cmd.CommandText = @"UPDATE clients SET first_name = @clientFirstName, last_name = @clientLastName, email = @clientEmail, phone_number = @clientPhoneNumber, street_address = @clientStreetAddress, city = @clientCity, state = @clientState, zip = @clientZip, age = @clientAge WHERE id = @clientId;";
             cmd.Parameters.AddWithValue("@clientFirstName", firstName);
             cmd.Parameters.AddWithValue("@clientLastName", lastName);
             cmd.Parameters.AddWithValue("@clientEmail", email);
@@ -202,7 +202,7 @@ namespace Aha.Models
             cmd.Parameters.AddWithValue("@clientCity", city);
             cmd.Parameters.AddWithValue("@clientState", state);
             cmd.Parameters.AddWithValue("@clientZip", zip);
-            cmd.Parameters.AddWithValue("@clientBirthday", birthday);
+            cmd.Parameters.AddWithValue("@clientAge", age);
             cmd.Parameters.AddWithValue("@clientId", id);
             cmd.ExecuteNonQuery();
 
@@ -215,7 +215,7 @@ namespace Aha.Models
             City = city;
             State = state;
             Zip = zip;
-            Birthday = birthday;
+            Age = age;
 
             conn.Close();
             if (conn != null)
@@ -340,7 +340,7 @@ namespace Aha.Models
 
         public List<Specialty> GetNeeds()
         {
-            List<Specialty> allClientSpecialties = new List<Specialty> { };
+            List<Specialty> allClientNeeds = new List<Specialty> { };
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
@@ -352,11 +352,11 @@ namespace Aha.Models
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while (rdr.Read())
             {
-                int specialtyId = rdr.GetInt32(0);
-                string specialtySubject = rdr.GetString(1);
-                string specialtyDiscipline = rdr.GetString(2);
-                Specialty newSpecialty = new Specialty (specialtySubject, specialtyDiscipline, specialtyId);
-                allClientSpecialties.Add(newSpecialty);
+                int needId = rdr.GetInt32(0);
+                string needSubject = rdr.GetString(1);
+                string needDiscipline = rdr.GetString(2);
+                Specialty newNeed = new Specialty (needSubject, needDiscipline, needId);
+                allClientNeeds.Add(newNeed);
             }
 
             conn.Close();
@@ -364,7 +364,7 @@ namespace Aha.Models
             {
                 conn.Dispose();
             }
-            return allClientSpecialties;
+            return allClientNeeds;
         }
     }
 }

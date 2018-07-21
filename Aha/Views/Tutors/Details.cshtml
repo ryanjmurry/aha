@@ -22,18 +22,30 @@
             <div class="row">
                 <div class="col">
                     <h5 class="detail-subheader">Email</h5>
+                    <div class="underline">
+                        
+                    </div>                    
                     <a href="mailto:@Model.CurrentTutor.Email" class="detail-info">@Model.CurrentTutor.Email</a>
                 </div>
                 <div class="col">
                     <h5 class="detail-subheader">Phone</h5>
+                    <div class="underline">
+                        
+                    </div>                    
                     <a href="tel:@Model.CurrentTutor.PhoneNumber" class="detail-info">@Model.CurrentTutor.PhoneNumber</a>
                 </div>
                 <div class="col">
                     <h5 class="detail-subheader">Rate</h5>
+                    <div class="underline">
+                        
+                    </div>                    
                     <span class="detail-info">$@Model.CurrentTutor.Rate.ToString("0.00") / hour</span>
                 </div>
                 <div class="col">
                     <h5 class="detail-subheader inline">Availability</h5><br>
+                    <div class="underline">
+                        
+                    </div>                    
                     <span class="detail-info">@Model.CurrentTutor.Availability</span>
                 </div>
             </div> 
@@ -42,30 +54,23 @@
             <div class="row">
                 <div class="col-4">
                     <h5 class="detail-subheader inline">Specialties</h5><a href="/tutors/@Model.CurrentTutor.Id/specialties" class="btn btn-sm btn-outline-primary float-right inline">Manage Specialties</a>
+                    <div class="underline">
+                        
+                    </div>                    
                     <ul class="list-group list-group-flush">
-                    @if (Model.CurrentTutor.GetSpecialties().Count == 0)
-                    {
-                        <li class="list-group-item"></li>
-                    }
-                    else
-                    {
                         @foreach (var specialty in Model.CurrentTutor.GetSpecialties())
                         {
                         <li class="list-group-item">@specialty.Subject</li>
                           
-                        }  
-                    }    
+                        }    
                     </ul>
                 </div>
                 <div class="col-4">
                     <h5 class="detail-subheader inline">Clients</h5><a href="/tutors/@Model.CurrentTutor.Id/clients" class="btn btn-sm btn-outline-primary float-right inline">Manage Clients</a>
+                    <div class="underline">
+                        
+                    </div>                    
                     <ul class="list-group list-group-flush">
-                    @if (Model.CurrentTutor.GetClients().Count == 0)
-                    {
-                        <li class="list-group-item"></li>
-                    }
-                    else
-                    {
                         @foreach (var client in Model.CurrentTutor.GetClients())
                         {   
                             <li class="list-group-item"><a href="/clients/@client.Id" class="inline">@client.LastName, @client.FirstName</a>
@@ -76,7 +81,6 @@
                                 </div>
                             </li>
                         }
-                    }
                     </ul>
                 </div>
             </div>

@@ -7,7 +7,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <span class="card-title detail-header">@Model.CurrentClient.FirstName @Model.CurrentClient.LastName</span>
+                    <span class="card-title detail-header">@Model.CurrentClient.FirstName @Model.CurrentClient.LastName</span>                 
                 </div>
                 <div class="col-3">
                         <a href="/clients/@Model.CurrentClient.Id/update" class="btn btn-sm btn-outline-info">Update Info</a>
@@ -18,14 +18,23 @@
             <div class="row">
                 <div class="col-4">
                     <h5 class="detail-subheader">Email</h5>
+                    <div class="underline">
+                        
+                    </div>                    
                     <a href="mailto:@Model.CurrentClient.Email" class="detail-info">@Model.CurrentClient.Email</a>
                 </div>
                 <div class="col-3">
                     <h5 class="detail-subheader">Phone</h5>
+                    <div class="underline">
+                        
+                    </div>                    
                     <a href="tel:@Model.CurrentClient.PhoneNumber" class="detail-info">@Model.CurrentClient.PhoneNumber</a>
                 </div>
                 <div class="col">
                     <h5 class="detail-subheader">Address</h5>
+                    <div class="underline">
+                        
+                    </div>                    
                     <a href="http://maps.google.com/?q=@Model.CurrentClient.StreetAddress, @Model.CurrentClient.City, @Model.CurrentClient.State @Model.CurrentClient.Zip" class="detail-info">@Model.CurrentClient.StreetAddress, @Model.CurrentClient.City, @Model.CurrentClient.State @Model.CurrentClient.Zip</a></span>
                 </div>
             </div> 
@@ -34,30 +43,23 @@
             <div class="row">
                 <div class="col-4">
                     <h5 class="detail-subheader inline">Needs</h5><a href="/clients/@Model.CurrentClient.Id/needs" class="btn btn-sm btn-outline-primary float-right inline">Manage Needs</a>
+                    <div class="underline">
+                        
+                    </div>
                     <ul class="list-group list-group-flush">
-                    @if (Model.CurrentClient.GetNeeds().Count == 0)
-                    {
-                        <li class="list-group-item"></li>
-                    }
-                    else
-                    {
                         @foreach (var specialty in Model.CurrentClient.GetNeeds())
                         {
                         <li class="list-group-item">@specialty.Subject</li>
                           
-                        }  
-                    }    
+                        }
                     </ul>
                 </div>
                 <div class="col-4">
                     <h5 class="detail-subheader inline">Tutors</h5><a href="/clients/@Model.CurrentClient.Id/tutors" class="btn btn-sm btn-outline-primary float-right inline">Manage Tutors</a>
+                    <div class="underline">
+
+                    </div>
                     <ul class="list-group list-group-flush">
-                    @if (Model.CurrentClient.GetTutors().Count == 0)
-                    {
-                        <li class="list-group-item"></li>
-                    }
-                    else
-                    {
                         @foreach (var tutor in Model.CurrentClient.GetTutors())
                         {
                             <li class="list-group-item"><a href="/tutors/@tutor.Id" class="inline">@tutor.LastName, @tutor.FirstName</a>
@@ -68,7 +70,6 @@
                                 </div>
                             </li>
                         } 
-                    }  
                     </ul>
                 </div>
             </div>

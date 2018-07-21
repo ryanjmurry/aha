@@ -16,9 +16,9 @@ namespace Aha.Controllers
         }
 
         [HttpPost("/clients/new")]
-        public ActionResult Create(string clientFirstName, string clientLastName, string clientEmail, string clientPhoneNumber, string clientStreetAddress, string clientCity, string clientState, string clientZip, DateTime clientBirthday)
+        public ActionResult Create(string clientFirstName, string clientLastName, string clientEmail, string clientPhoneNumber, string clientStreetAddress, string clientCity, string clientState, string clientZip, int clientAge)
         {
-            Client newClient = new Client(clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientBirthday);
+            Client newClient = new Client(clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientAge);
             newClient.Save();
             return RedirectToAction("Needs", new { id = newClient.Id});
         }
@@ -56,10 +56,10 @@ namespace Aha.Controllers
         }
 
         [HttpPost("/clients/{id}/update")]
-        public ActionResult Update(int id, string clientFirstName, string clientLastName, string clientEmail, string clientPhoneNumber, string clientStreetAddress, string clientCity, string clientState, string clientZip, DateTime clientBirthday)
+        public ActionResult Update(int id, string clientFirstName, string clientLastName, string clientEmail, string clientPhoneNumber, string clientStreetAddress, string clientCity, string clientState, string clientZip, int clientAge)
         {
             Client currentClient = Client.Find(id);
-            currentClient.Update(clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientBirthday, id);
+            currentClient.Update(clientFirstName, clientLastName, clientEmail, clientPhoneNumber, clientStreetAddress, clientCity, clientState, clientZip, clientAge, id);
             return RedirectToAction("Details", new { id = currentClient.Id});
         }
 

@@ -100,8 +100,7 @@ namespace Aha.Tests
         {
             Specialty newSpecialty = new Specialty("Chemistry", "Science");
             newSpecialty.Save();
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15);
             newClient.Save();
             newSpecialty.AddClient(newClient);
             List<Client> expectedList = new List<Client> { newClient };

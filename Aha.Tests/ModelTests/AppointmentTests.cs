@@ -113,8 +113,7 @@ namespace Aha.Tests
         {
             Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
             newTutor.Save();
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 13);
             newClient.Save();
             DateTime time = new DateTime (1111, 11, 11);
             Appointment newAppointment = new Appointment(newTutor.Id, newClient.Id, time, "123 ABC Street", "Xyz", "ZZ", "12345");

@@ -21,8 +21,7 @@ namespace Aha.Tests
         [TestMethod]
         public void GetSet_GetsAndSetsClientProperties_Properties()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday, 1);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15, 1);
             Assert.AreEqual("Ashley", newClient.FirstName);
             Assert.AreEqual("Adelman", newClient.LastName);
             Assert.AreEqual("aa@gmail.com", newClient.Email);
@@ -31,16 +30,15 @@ namespace Aha.Tests
             Assert.AreEqual("Xyz", newClient.City);
             Assert.AreEqual("ZZ", newClient.State);
             Assert.AreEqual("12345", newClient.Zip);
-            Assert.AreEqual(birthday, newClient.Birthday);
+            Assert.AreEqual(15, newClient.Age);
             Assert.AreEqual(1, newClient.Id);
         }
 
         [TestMethod]
         public void Equals_ReturnsTrueIfPropertiesAreSame_True()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient1 = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday, 1);
-            Client newClient2 = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday, 1);
+            Client newClient1 = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15, 1);
+            Client newClient2 = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15, 1);
             Assert.AreEqual(newClient1, newClient2);
         }
 
@@ -54,8 +52,7 @@ namespace Aha.Tests
         [TestMethod]
         public void Save_SavesClientToDb_ClientList()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15);
             newClient.Save();
             List<Client> expectedList = new List<Client> { newClient };
             List<Client> actualList = Client.GetAll();
@@ -65,8 +62,7 @@ namespace Aha.Tests
         [TestMethod]
         public void DeleteAll_DeletesAllClientsFromDb_ClientList()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15);
             newClient.Save();
             Client.DeleteAll();
             List<Client> expectedList = new List<Client> { };
@@ -77,8 +73,7 @@ namespace Aha.Tests
         [TestMethod]
         public void Find_FindsClientInDb_Client()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15);
             newClient.Save();
             Client foundClient = Client.Find(newClient.Id);
             Assert.AreEqual(newClient, foundClient);
@@ -87,10 +82,9 @@ namespace Aha.Tests
         [TestMethod]
         public void Delete_DeletesClientInDb_ClientList()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient1 = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient1 = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15);
             newClient1.Save();
-            Client newClient2 = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient2 = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15);
             newClient2.Save();
             Client.Delete(newClient1.Id);
             List<Client> expectedList = new List<Client> { newClient2 };
@@ -101,10 +95,9 @@ namespace Aha.Tests
         [TestMethod]
         public void Update_UpdateClientFromDb_String()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday, 1);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15, 1);
             newClient.Save();
-            newClient.Update("Bill", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday, newClient.Id);
+            newClient.Update("Bill", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15, newClient.Id);
             string actualFirstName = Client.Find(newClient.Id).FirstName;
             Assert.AreEqual("Bill", actualFirstName);
         }
@@ -112,8 +105,7 @@ namespace Aha.Tests
         [TestMethod]
         public void AddsGetsTutors_AddsAndGetsAssociatedTutorsFromDb_TutorList()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15);
             newClient.Save();
             Tutor newTutor = new Tutor("Sean", "Miller", "sm@gmail.com", "1234567890", 1, true, "Weekends", 25.00);
             newTutor.Save();
@@ -126,8 +118,7 @@ namespace Aha.Tests
         [TestMethod]
         public void GetsAppointments_GetsAssociatedAppointmentsFromDb_AppointmentList()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15);
             newClient.Save();
             DateTime time = new DateTime (1111, 11, 11);
             Appointment newAppointment = new Appointment(1, newClient.Id, time, "123 ABC Street", "Xyz", "ZZ", "12345");
@@ -141,8 +132,7 @@ namespace Aha.Tests
         [TestMethod]
         public void AddsGetsSpecialtiess_AddsAndGetsAssociatedSpecialtiessFromDb_SpecialtyList()
         {
-            DateTime birthday = new DateTime (1111, 11, 11);
-            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", birthday);
+            Client newClient = new Client("Ashley", "Adelman", "aa@gmail.com", "1234567890", "123 ABC Street", "Xyz", "ZZ", "12345", 15);
             newClient.Save();
             Specialty newNeed = new Specialty("Chemistry", "Science");
             newNeed.Save();
