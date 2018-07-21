@@ -1,6 +1,5 @@
 @{
   Layout = "_Layout";
-  ViewData["Title"] = "New Tutor";
 }
 
 <div class="container">
@@ -14,7 +13,7 @@
                 <ul class="list-group list-group-flush">
                     @foreach (var client in Model.CurrentTutor.GetClients())
                     {
-                        <li class="list-group-item"><form method="post" action="/tutors/@Model.CurrentTutor.Id/client/@client.Id/delete"><a href="/clients/@client.Id">
+                        <li class="list-group-item"><form method="post" action="/tutors/@Model.CurrentTutor.Id/clients/@client.Id/delete"><a href="/clients/@client.Id">
                             @client.LastName, @client.FirstName</a><button type="submit" class="btn btn-sm btn-outline-danger float-right">Delete</button>
                         </form></li>
                     }        

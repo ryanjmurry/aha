@@ -1,0 +1,46 @@
+@{
+  Layout = "_Layout";
+}
+
+<div class="container">
+    <h2 class="header-text centered">@Model.CurrentClient.FirstName @Model.CurrentClient.LastName's Tutors</h2>
+    <br>
+        <div class="row">
+            <div class="col-1">
+                
+            </div>
+            <div class="col-5">
+                <ul class="list-group list-group-flush">
+                    @foreach (var tutor in Model.CurrentClient.GetTutors())
+                    {
+                        <li class="list-group-item"><form method="post" action="/clients/@Model.CurrentClient.Id/tutors/@tutor.Id/delete"><a href="/tutors/@tutor.Id">
+                            @tutor.LastName, @tutor.FirstName</a><button type="submit" class="btn btn-sm btn-outline-danger float-right">Delete</button>
+                        </form></li>
+                    }        
+                </ul>
+            </div>
+            <div class="col-5">
+                <form method="post" action="/clients/@Model.CurrentClient.Id/tutors">
+                    <label for="clientTutor">Tutors</label>
+                    <select name="clientTutor" class="form-control">
+                    @foreach (var tutor in Model.AllTutors)
+                    {
+                            if (!@Model.CurrentClient.GetTutors().Contains(@tutor))
+                            {
+                                <option value="@tutor.Id">@tutor.LastName, @tutor.FirstName</option>
+                            }
+                    }
+                    </select>
+                    <br>
+                    <button type="submit" class="btn btn-outline-primary">Add tutor</button>
+                    <br>
+                    <br>
+                    <a href="/clients/@Model.CurrentClient.Id" class="btn btn-outline-success">Finish</a>
+                </form>           
+            </div>
+            <div class="col-1">
+                
+            </div>
+        </div>
+
+</div>

@@ -89,8 +89,8 @@ namespace Aha.Controllers
             return RedirectToAction("Specialties", new { id = currentTutor.Id});
         }
 
-        [HttpPost("tutors/{tutorId}/client/{clientId}/delete")]
-        public ActionResult DeleteTutor(int tutorId, int clientId)
+        [HttpPost("tutors/{tutorId}/clients/{clientId}/delete")]
+        public ActionResult DeleteClient(int tutorId, int clientId)
         {
             Tutor currentTutor = Tutor.Find(tutorId);
             Client currentClient = Client.Find(clientId);

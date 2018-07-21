@@ -98,5 +98,22 @@ namespace Aha.Controllers
             currentClient.DeleteNeed(currentNeed);
             return RedirectToAction("Needs", new { id = currentClient.Id});
         }
+
+        [HttpGet("/clients/{id}/tutors")]
+        public ActionResult Tutors(int id)
+        {
+            ViewModel newViewModel = new ViewModel();
+            newViewModel.FindClient(id);
+            return View(newViewModel);
+        }
+
+        [HttpPost("/clients/{id}/tutors")]
+        public ActionResult AddTutor(int id, int clientTutor)
+        {
+            Client currentClient = Client.Find(id);
+            Tutor newTutor = Tutor.Find(clientTutor);
+            currentClient.AddTutor(newTutor);
+            return RedirectToAction("Tutors");
+        }
     }
 }
