@@ -3,27 +3,62 @@
 }
 <div class="container">
     <h1 class="centered">Clients</h1>
-    <div class="row">
-    @foreach (var client in Model)
+    @if (Model.Count == 0)
     {
-      <div class="col-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title centered"><a href="/clients/@client.Id">@client.FirstName</a></h5>
-            <div class="centered">
-              <a href="tel:@client.PhoneNumber" class="btn btn-sm btn-outline-success">Call</a>
-              <a href="sms:@client.PhoneNumber" class="btn btn-sm btn-outline-info">text</a>
-              <a href="mailto:@client.Email" class="btn btn-sm btn-outline-warning">Email</a>
+      <div class="centered">
+        <div class="page-centered">
+          <a href="/clients/new" class="btn btn-outline-primary">Add New Client</a>
+        </div>
+      </div>
+    }
+    else
+    {
+      <div class="card-columns">
+      @foreach (var client in Model)
+      {
+          <div class="card border-primary">
+            <div class="card-body">
+              <h5 class="card-title centered"><a href="/clients/@client.Id">@client.LastName, @client.FirstName</a></h5>
+              <div class="centered">
+                <a href="tel:@client.PhoneNumber" class="btn btn-sm btn-outline-success">Call</a>
+                <a href="sms:@client.PhoneNumber" class="btn btn-sm btn-outline-info">text</a>
+                <a href="mailto:@client.Email" class="btn btn-sm btn-outline-warning">Email</a>
+              </div>
+            </div>
+          </div>
+      }
+      </div>
+      <br>
+      <br>
+      <div class="centered">
+        <a href="/clients/new" class="btn btn-outline-primary">Add New Client</a>
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteAllClients">
+          Delete All Clients
+        </button>
+
+        <div class="modal fade" id="deleteAllClients" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete All Clients</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-danger" role="alert">
+                  <strong>Warning!</strong> Deleting all clients cannot be undone.
+                </div>
+              </div>
+              <div class="modal-footer">
+                <form method="post" action="/clients/delete-all">
+                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-outline-danger">Delete All</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     }
-    </div>
-    <br>
-    <br>
-    <div class="centered">
-      <a href="/clients/new" class="btn btn-outline-primary">Add New Client</a>
-      <a href="/clients/delete-all" class="btn btn-outline-danger">Delete All Clients</a>
-    </div>
 </div>

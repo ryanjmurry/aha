@@ -240,6 +240,22 @@ namespace Aha.Models
             }
         }
 
+        public void DeleteTutor(Tutor newTutor)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM tutors_clients WHERE tutor_id = @tutorId AND client_id = @clientId;";
+            cmd.Parameters.AddWithValue("@tutorId", newTutor.Id);
+            cmd.Parameters.AddWithValue("@clientId", this.Id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
         public List<Tutor> GetTutors()
         {
             List<Tutor> allClientTutors = new List<Tutor> { };

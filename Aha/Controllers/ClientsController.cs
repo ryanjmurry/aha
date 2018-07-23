@@ -77,12 +77,6 @@ namespace Aha.Controllers
             return RedirectToAction("Clients", "Home");
         }
 
-        [HttpGet("/clients/delete-all")]
-        public ActionResult DeleteAllConfirmation(int id)
-        {
-            return View();
-        }
-
         [HttpPost("/clients/delete-all")]
         public ActionResult DeleteAllClients()
         {
@@ -114,6 +108,15 @@ namespace Aha.Controllers
             Tutor newTutor = Tutor.Find(clientTutor);
             currentClient.AddTutor(newTutor);
             return RedirectToAction("Tutors");
+        }
+
+        [HttpPost("clients/{clientId}/tutors/{tutorId}/delete")]
+        public ActionResult DeleteClient(int clientId, int tutorId)
+        {
+            Tutor currentTutor = Tutor.Find(tutorId);
+            Client currentClient = Client.Find(clientId);
+            currentClient.DeleteTutor(currentTutor);
+            return RedirectToAction("Tutors", new { id = currentClient.Id});
         }
     }
 }
