@@ -10,7 +10,7 @@ namespace Aha.Controllers
     public class SpecialtiesController : Controller
     {
         [HttpGet("/specialties/{id}")]
-        public ActionResult Matches()
+        public ActionResult Matches(int id)
         {
             ViewModel newViewModel = new ViewModel();
             newViewModel.FindSpecialty(id);
