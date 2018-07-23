@@ -9,7 +9,7 @@ namespace Aha
     // update DbNameHere with correct db name
     public static class DBConfiguration
     {
-        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=rjm;";
+        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=ryan_murry;";
     }
 
     public class Startup

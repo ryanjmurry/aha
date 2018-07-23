@@ -18,7 +18,7 @@ namespace Aha.Tests
 
         public TutorTest()
         {
-            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=rjm_test;";
+            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=ryan_murry_test;";
         }
 
         [TestMethod]
