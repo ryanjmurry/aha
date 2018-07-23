@@ -9,6 +9,12 @@ namespace Aha.Controllers
 {
     public class SpecialtiesController : Controller
     {
-        
+        [HttpGet("/specialties/{id}")]
+        public ActionResult Matches()
+        {
+            ViewModel newViewModel = new ViewModel();
+            newViewModel.FindSpecialty(id);
+            return View(newViewModel);
+        }
     }
 }

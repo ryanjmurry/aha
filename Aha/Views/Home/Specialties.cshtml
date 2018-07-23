@@ -1,0 +1,65 @@
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+    <h1 class="centered">Subjects</h1>
+    <br>
+    <div class="row">
+        <div class="col-3">
+
+        </div>
+        <div class="col">
+        <div class="inline">
+            <h4>Subjects</h4>
+        </div>  
+        <div class="float-right inline">
+            <h4>Tutors | Clients</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var specialty in Model.AllSpecialties)
+            {
+                @if (specialty.Discipline == "AP")
+                {
+                    <li class="list-group-item">
+                        <i class="fas fa-university ap-icon"></i>&nbsp;&nbsp;<a href="specialties/@specialty.Id">@specialty.Subject</a><span class="badge badge-sm badge-info float-right">@specialty.GetTutors().Count | @specialty.GetClients().Count</span>
+                    </li>
+                }
+                else if (specialty.Discipline == "Math")
+                {
+                    <li class="list-group-item">
+                        <i class="fas fa-calculator math-icon"></i>&nbsp;&nbsp;<a href="specialties/@specialty.Id">@specialty.Subject</a><span class="badge badge-sm badge-info float-right">@specialty.GetTutors().Count | @specialty.GetClients().Count</span>
+                    </li>
+                }
+                else if (specialty.Discipline == "Science")
+                {
+                    <li class="list-group-item">
+                        <i class="fas fa-flask science-icon"></i>&nbsp;&nbsp;<a href="specialties/@specialty.Id">@specialty.Subject</a><span class="badge badge-sm badge-info float-right">@specialty.GetTutors().Count | @specialty.GetClients().Count</span>
+                    </li>
+                }
+                else if (specialty.Discipline == "Foreign Language")
+                {
+                    <li class="list-group-item">
+                        <i class="fas fa-language language-icon"></i>&nbsp;&nbsp;<a href="specialties/@specialty.Id">@specialty.Subject</a><span class="badge badge-sm badge-info float-right">@specialty.GetTutors().Count | @specialty.GetClients().Count</span>
+                    </li>
+                }
+                else if (specialty.Discipline == "Humanities")
+                {
+                    <li class="list-group-item">
+                        <i class="fas fa-book humanities-icon"></i>&nbsp;&nbsp;<a href="specialties/@specialty.Id">@specialty.Subject</a><span class="badge badge-sm badge-info float-right">@specialty.GetTutors().Count | @specialty.GetClients().Count</span>
+                    </li>
+                }
+                else
+                {
+                    <li class="list-group-item">
+                        <a href="specialties/@specialty.Id">@specialty.Subject</a>
+                    </li>
+                }
+            }        
+        </ul>
+        </div>
+        <div class="col-3">
+            
+        </div>
+    </div>
+    
+</div>

@@ -44,3 +44,23 @@ body {
 .underline {
     border: 1px solid rgba(134, 142, 150, 0.25);
 }
+
+.math-icon {
+    color: #d9534f;
+}
+
+.science-icon {
+    color: #02B875;
+}
+
+.humanities-icon {
+    color: #f0ad4e;
+}
+
+.language-icon {
+    color: #17a2b8;
+}
+
+.ap-icon {
+    color: #adb5bd;
+}

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Aha.Models;
+using Aha.ViewModels;
 
 
 namespace Aha.Controllers
@@ -26,6 +27,13 @@ namespace Aha.Controllers
         {
             List<Client> allClients = Client.GetAll();
             return View(allClients);
+        }
+
+        [HttpGet("/specialties")]
+        public ActionResult Specialties()
+        {
+            ViewModel newViewModel = new ViewModel();
+            return View(newViewModel);
         }
     }
 }
